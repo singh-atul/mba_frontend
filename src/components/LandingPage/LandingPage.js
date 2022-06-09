@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
 import Navbar from "../Navbar/Navbar"
 import './LandingPage.css';
 import {getAllMovies} from '../../api/movie'
@@ -20,7 +21,7 @@ const LandingPage = () => {
 
     
       const selectedMovie = (movieName) => {
-          var index = movieList.findIndex(function(movie) {
+          movieList.findIndex(function(movie) {
             return movie.name.toUpperCase() === movieName.toUpperCase()
           });
 
@@ -37,6 +38,7 @@ const LandingPage = () => {
                <div className="row">
                    {
                        movieList.map((movie) =>(
+                        <Link key={movie._id} className="movies" to={`/movie/${movie._id}/details`}>
                         <div className="col d-flex h-200" key={movie.name}>
                             <div className="card " style={{height: 20 + "rem", width: 15 + "rem"}}>
                                 <img src={movie.posterUrl} className="card-img-top" alt="..."/>
@@ -47,6 +49,7 @@ const LandingPage = () => {
                                 </div>
                             </div>
                         </div>
+                        </Link>
                     ))
                    }
                    

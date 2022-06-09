@@ -13,6 +13,7 @@
     "bootstrap-icons": "^1.8.3",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
+    "react-player": "^2.10.1",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "suggestion-react-input-search": "^1.4.0",

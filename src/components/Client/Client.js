@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from 'react-bootstrap'
-import './Admin.css';
+import './Client.css';
 import {addNewTheater,getAllTheaters,updateTheaterDetails,deleteTheaterDetail,getTheaterById, updateTheaterMovie} from '../../api/theater'
 import { cities } from "../../util/cities";
 import {getAllMovies,addNewMovie,removeMovie,updateMovieDetails} from '../../api/movie'
@@ -14,7 +14,7 @@ import Add from '@material-ui/icons/Add';
 import { ExportCsv, ExportPdf } from '@material-table/exporters';
 
 
-const Admin = () => {
+const Client = () => {
 
 const [addTheaterModal, showAddTheaterModal] = useState(false);
 const [updateTheaterModal, showUpdateTheaterModal] = useState(false);
@@ -218,10 +218,7 @@ const clearState=()=>{
 
 return (
     <div>
-        <h3>Admin Page</h3>
-        Number of users{counterInfo.userResult}<br/>
-        Number of theaters{counterInfo.theater}<br/>
-        Number of moviess{counterInfo.movies}<br/>
+        <h3>Client Page</h3>
         <MaterialTable
                         title="THEATERS "
                       data={cinemaList}
@@ -247,11 +244,6 @@ return (
                       ]}
                       
                       actions={[
-                        {
-                          icon:Delete,
-                          tooltip: 'Delete Theater',
-                          onClick: (event, rowData) => deleteTheater(rowData)
-                        },
                         {
                             icon:Edit,
                             tooltip: 'Edit Theater',
@@ -281,7 +273,6 @@ return (
                         }
                     }}
                   />
-        <button className="btn btn-primary" onClick={addTheater}>Add Theater</button>
        
         {   
 
@@ -410,23 +401,9 @@ return (
                         },
                     ]}
                       
-                      actions={[
-                        {
-                          icon:Delete,
-                          tooltip: 'Delete Movie',
-                          onClick: (event, rowData) => deleteMovie(rowData)
-                        },
-                        {
-                            icon:Edit,
-                            tooltip: 'Edit Movie',
-                            onClick: (event, rowData) => editMovie(rowData)
-                          },
-                          
-
-                      ]}
+                     
                      
                       options={{
-                        actionsColumnIndex: -1,
                         sorting: true,
                         exportMenu: [{
                             label: 'Export PDF',
@@ -445,194 +422,9 @@ return (
                         }
                     }}
                   />
-        <button className="btn btn-primary" onClick={addMovie}>Add Movie</button>
-        {   
-
-<Modal
-    show={addMovieModal || updateMovieModal}
-    onHide={clearState}
-    backdrop="static"
-    keyboard={false}
-    centered
-      >
-    <Modal.Header closeButton>
-        <Modal.Title >{updateMovieModal ? "EDIT Movie" : "ADD Movie" }</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-        <form onSubmit={updateMovieModal? updateMovie :newMovie }>
-            <input type="text" name="name" value = {tempMovieDetail.name} placeholder="Movie Name" onChange={updateTempMovieDetail} required/>
-            <input type="text" name="description" value = {tempMovieDetail.description} placeholder="Description" onChange={updateTempMovieDetail} required/>
-            <br/>
-            <input type="text" name="director" value = {tempMovieDetail.director} placeholder="director" onChange={updateTempMovieDetail} required/>
-            <input type="text" name="trailerUrl" value = {tempMovieDetail.trailerUrl} placeholder="trailerUrl" onChange={updateTempMovieDetail} required/>
-            <br/>
-            <select  name="releaseStatus" value = {tempMovieDetail.releaseStatus}  onChange={updateTempMovieDetail} required>
-                <option value="RELEASED" selected>RELEASED </option>
-                <option value="UNRELEASED">UNRELEASED</option>
-                <option value="BLOCKED">BLOCKED</option>
-            </select>
-                | 
-            
-            <input type="text" name="language" value = {tempMovieDetail.language} placeholder="language" onChange={updateTempMovieDetail} required/>
-            <br/>
-            <input type="text" name="posterUrl" value = {tempMovieDetail.posterUrl} placeholder="posterUrl" onChange={updateTempMovieDetail} required/>
-            <input type="text" name="releaseDate" value = {tempMovieDetail.releaseDate} placeholder="releaseDate" onChange={updateTempMovieDetail} required/>
-            <br/>
-            <div className="input-group justify-content-center">
-                <div className="m-1">
-                    <Button variant="secondary" onClick={clearState}>Cancel</Button>
-                </div>
-                <div className="m-1">
-                    <Button type="submit" variant="primary" >{updateMovieModal ? "EDIT Movie" : "ADD Movie" }</Button>
-                </div>
-            </div>
-
-
-        </form>
-            </Modal.Body>
-     </Modal>
-
-        }       
-
-
-
-        
-
-         <MaterialTable
-                      onRowClick={(event, rowData) => editUser(rowData)}
-  
-                      data={userList}
-                      columns={[
-                          {
-                              title: "USER ID",
-                              field: "userId",
-                          },
-                          {
-                              title: "Name",
-                              field: "name",
-  
-                          },
-                          {
-                              title: "EMAIL",
-                              field: "email",
-                              filtering: false
-                          },
-                          {
-                              title: "ROLE",
-                              field: "userType",
-                              lookup: {
-                                  "ADMIN": "ADMIN",
-                                  "CUSTOMER": "CUSTOMER",
-                                  "CLIENT": "CLIENT",
-  
-                              },
-                          },
-                          {
-                              title: "Status",
-                              field: "userStatus",
-                              lookup: {
-                                  "APPROVED": "APPROVED",
-                                  "PENDING": "PENDING",
-                                  "REJECTED": "REJECTED",
-  
-                              },
-                          },
-                      ]}
-                      options={{
-                          filtering: true,
-                          sorting: true,
-                          exportMenu: [{
-                              label: 'Export PDF',
-                              exportFunc: (cols, datas) => ExportPdf(cols, datas, 'UserRecords')
-                          }, {
-                              label: 'Export CSV',
-                              exportFunc: (cols, datas) => ExportCsv(cols, datas, 'userRecords')
-                          }],
-                          headerStyle: {
-                              backgroundColor: 'darkblue',
-                              color: '#FFF'
-                            },
-                            rowStyle: {
-                              backgroundColor: '#EEE',
-                            }
-                      }}
-                      title="USER RECORDS"
-                  />
-
-{userModal ? (
-
-    
-  <Modal
-      show={userModal}
-      onHide={clearState}
-      backdrop="static"
-      keyboard={false}
-      centered
-  >
-      <Modal.Header closeButton>
-          <Modal.Title >Edit Details</Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-          <form onSubmit={updateUserDetail} >
-
-              <div className="p-1">
-                  <h5 className="card-subtitle mb-2 text-primary lead">User ID: {userDetail.userId}</h5>
-                  <hr />
-                  <div className="input-group mb-3">
-                  <label className="label input-group-text label-md ">Name</label>
-                      <input type="text" className="form-control" name="name" value={userDetail.name} onChange={changeUserDetail} />
-
-                  </div>
-                  <div className="input-group mb-3">
-                  <label className="label input-group-text label-md ">Email</label>
-                      <input type="text" className="form-control" name="name" value={userDetail.email} onChange={changeUserDetail} disabled />
-
-                  </div>
-
-                  <div className="input-group mb-3">
-                  <label className="label input-group-text label-md ">Type</label>
-                      <select className="form-select" name="userType" value={userDetail.userType} onChange={changeUserDetail}>
-                          <option value="ADMIN">ADMIN</option>
-                          <option value="CUSTOMER">CUSTOMER</option>
-                          <option value="CLIENT">CLIENT</option>
-                      </select>
-
-                  </div>
-
-                  <div className="input-group mb-3">
-                  <label className="label input-group-text label-md ">Status</label>
-                      <select name="userStatus" className="form-select"
-                          value={userDetail.userStatus} onChange={changeUserDetail}>
-                          <option value="APPROVED">APPROVED</option>
-                          <option value="REJECTED">REJECTED</option>
-                          <option value="PENDING">PENDING</option>
-                      </select>
-
-                  </div>
-
-              </div>
-              <div className="input-group justify-content-center">
-                <div className="m-1">
-                <Button variant="secondary" onClick={clearState}>
-              Close
-          </Button>
-                </div>
-                <div className="m-1">
-                <Button type="submit" variant="primary" >Update</Button>
-                </div>
-            </div>
-          </form>
-      </Modal.Body>
-      <Modal.Footer>
-      </Modal.Footer>
-  </Modal>
-
-) : (
-  ""
-)}              
     </div>
     
 )
 }
 
-export default Admin
+export default Client

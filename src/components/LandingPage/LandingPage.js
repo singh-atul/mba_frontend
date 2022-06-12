@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Navbar from "../Navbar/Navbar"
 import './LandingPage.css';
 import {getAllMovies} from '../../api/movie'
+import Cinemas from "../Cinemas/Cinemas";
 const LandingPage = () => {
     const [movieList, setMovieList] = useState([]);
     const [pageLoading, setPageLoading] = useState(true);
@@ -33,6 +34,7 @@ const LandingPage = () => {
       return (
         !pageLoading ? ( <>
            <Navbar movies={movieList.map((movie)=>movie.name)}  onMovieSelect={selectedMovie}/>
+           <Cinemas/>
            <div className="container mx-5 my-2">
                <p className="fw-bolder">Recomended Movies</p>
                <div className="row">
@@ -54,6 +56,7 @@ const LandingPage = () => {
                    }
                    
                </div>
+               
            </div>
         </>
       ):

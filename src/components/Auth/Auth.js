@@ -1,123 +1,166 @@
-import React, { useEffect, useState } from "react";
-import './Auth.css';
+import React, { useState,useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+import { Dropdown, DropdownButton } from "react-bootstrap";
 import {signIn,signUp} from '../../api/auth'
-const Auth = () => {
-    const [username, setusername] = useState('');
-    const [password, setPassword] = useState('');
-    const [email, setEmail] = useState('');
+function Login() {
     const [showSignup, setShowSignup] = useState(false);
-    const [signupSuccess, setSignupSuccess] = useState(false)
-    const [authMessage, setAuthMessage] = useState('');
-  
-    const signinHandler = async () => {
+    const [message, setMessage] = useState("");
+    const [userType, setValue] = useState("CUSTOMER")
+    const [userSignUpData,setUserSignUpData] = useState({})
+    const navigate = useNavigate();
 
-        setAuthMessage('');
-        if (!username || !password) {
-    
-          setAuthMessage('Username and Password are required!!');
-          return;
+    const redirectUrl = () =>{
+      if ( localStorage.getItem("userTypes")=== "CUSTOMER")
+          navigate('/');
+      else if ((localStorage.getItem("userTypes") === "CLIENT"))
+          navigate('/client'); 
+      else
+          navigate('/admin');  
+    }
+    useEffect(() => {
+            if(localStorage.getItem("token")){
+              redirectUrl()
+                }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+      }, []);
+
+
+    const history = useNavigate();
+    const loginFn = async (e) => {
+        e.preventDefault();
+        const userId = userSignUpData.userId;
+        const password = userSignUpData.password
+
+
+        const data = {
+            userId: userId,
+            password: password
+        };
+
+        const result = await signIn(data);
+        redirectUrl()        
         }
+        
+       
     
-        const user = { username, password }
-    
-        try {
-          const response = await signIn(user);
-          console.log(response);
-          clearState();
-          // navigate("/")
-    
-        } catch (error) {
-    
-          const { message } = error.response.data;
-          setAuthMessage(message)
-        }
-      }
+
+    const signupFn = (e) => {
+        const username =  userSignUpData.username;
+        const userId = userSignUpData.userId;
+        const email = userSignUpData.email;
+        const password = userSignUpData.password
 
 
-    const signupHandler = async () => {
+        const data = {
+            name: username,
+            userId: userId,
+            email: email,
+            userType: userType,
+            password: password
+        };
+        e.preventDefault();
+        signUp(data).then(function (response) {
+                if (response.status === 201) {
+                   history(0);
+                }
+            })
+            .catch(function (error) {
+                if(error.response.status===400)
+                    setMessage(error.response.data.message);
+                else
+                    console.log(error);
+            });
+    }
 
-        if (!username || !password || !email) {
-    
-          setAuthMessage('Username, Password, Email are required!!');
-          return;
-    
-        }
-        const user = { username, password, email }
-    
-        try {
-    
-    
-          const response = await signUp(user);
-          setAuthMessage(response.data.message);
-          clearState();
-          setSignupSuccess(true);
-          // window.location.href = "/";
-          // window.location.href = '/'
-          // navigate("/")
-    
-    
-        } catch (error) {
-    
-          const { message } = error.response.data;
-          setAuthMessage(message);
-        }
-      }
+    const  updateSignupData =(e)=>{
+        userSignUpData[e.target.id]=e.target.value;
+    }
 
-      const clearState = () => {
+    const toggleSignup = () => {
 
-        setShowSignup(false);
-        setusername('');
-        setPassword('');
-        setEmail('');
-        setSignupSuccess(false);
-    
-      }
+        setShowSignup(!showSignup);
+        if(showSignup){
+            setUserSignUpData({});
+    }
+    }
 
-      const renderComponent = () => {
+    const handleSelect = (e) => {
+        setValue(e)
 
-        return (
-          <>
+    }
 
-            <div className="login">
-              <div className="container">
-                <div className="row">
-                  <div className="col">
-                    <h2 className="home-title text-center">Welcome to InstaShop</h2>
-                    <div className="login-wrapper">
-                      <h4 className="text-center">{showSignup ? 'Sign up' : 'Login'}</h4>
-                      <div className="input-group">
-                        <input type="text" className="form-control" placeholder="username" id="username" value={username} onChange={(e) => setusername(e.target.value)} autoComplete="off" autoFocus />
-                      </div>
-                      <div className="input-group">
-                        <input type="password" className="form-control" placeholder="Password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="off" />
-                      </div>
-    
-                      {showSignup && <div className="input-group">
-                        <input type="text" className="form-control" placeholder="Email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="off" />
-                      </div>
-                      }
-    
-                      <div className="input-group">
-                        <input type="submit" className="form-control btn btn-primary" value={showSignup ? "Sign Up" : "Log In"} onClick={showSignup ? signupHandler : signinHandler} />
-                      </div>
-                      <div className="signup-btn" onClick={toggleSignup}>{showSignup ? 'Already have an Account ? Login' : "Don't have an Account? Signup"}
-                      </div>
-                      <div className={signupSuccess ? "auth-msg text-info text-center" : "auth-msg text-danger text-center"}>{authMessage}</div>
+    return (
+
+        <div id="loginPage">
+            <div id="loginPage" className="bg-primary d-flex justify-content-center align-items-center vh-100">
+
+                <div className="card m-5 p-5 " >
+                    <div className="row m-2 ">
+                                    <div >
+                                        <h4 className="text-center ">{showSignup ? 'Sign up' : 'Login'}</h4>
+                                            
+                                            <form  onSubmit={showSignup ? signupFn: loginFn}>
+                                                <div className="input-group ">
+                                                    <input type="text" className="form-control" placeholder="User Id" id="userId" onChange={updateSignupData}  autoFocus required />
+                                                
+                                                </div>
+                                                <input type="password" className="form-control" placeholder="Password"  id="password" onChange={updateSignupData} required/>
+                                                {showSignup && <>
+                                                <div className="input-group ">
+                                                    <input type="text" className="form-control" placeholder="Username" id="username" onChange={updateSignupData} required />
+                                                </div>
+                                                <div className="input-group ">    
+                                                    <input type="text" className="form-control" placeholder="Email" id="email" onChange={updateSignupData} required/>
+                                                </div>    
+                                                <div className="row">
+                                                    <div className="col">
+                                                        <span className="mx-1 my-1"> User Type</span>
+                                                    </div>
+                                                    <div className="col">
+                                                        <DropdownButton
+                                                            align="end"
+                                                            title={userType}
+                                                            id="userType"
+                                                            onSelect={handleSelect}
+                                                        variant="light"
+                                                        >
+                                                            <Dropdown.Item eventKey="CUSTOMER">CUSTOMER</Dropdown.Item>
+                                                            <Dropdown.Item eventKey="ENGINEER">ENGINEER</Dropdown.Item>
+                                                        </DropdownButton>
+                                                    </div>
+                                                </div>
+                                                
+                                                </>
+                                                   }
+                                                <div className="input-group">
+                                                    <input type="submit" className="form-control btn btn-primary" value={showSignup ? "Sign Up" : "Log In"} />
+                                                </div>
+                                                <div className="signup-btn text-center" onClick={toggleSignup}>{showSignup ? 'Already have an Account ? Login' : "Don't have an Account? Signup"}</div>
+                                                <div className="auth-error-msg text-danger text-center">{message}</div>
+                                            </form>
+                                    </div>
+                                
                     </div>
-    
-                  </div>
                 </div>
-              </div>
+            
             </div>
-          </>
-        )
-    
-      }
-
-
-
-return (
-    renderComponent()
-)
+            <div style={{
+                position: "fixed",
+                left: 0,
+                bottom: 0,
+                right: 0,
+                backgroundColor: "white"
+                }}>
+                <footer className="page-footer">
+                    <div className="text-center py-3">© 2022 Copyright:
+                        <a href="https://relevel.com">Relevel by Unacademy</a>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+          
+    )
 }
-export default Auth;
+
+export default Login;

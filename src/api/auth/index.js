@@ -9,12 +9,15 @@ export const signIn = async (user) => {
 
   try {
     const response = await AxiosInstance.post(URL, user);
-    console.log(response);
-    const { name, userId, email,accessToken } = response.data;
-    localStorage.setItem("username", name)
+
+    const { name, userId, email,userTypes,userStatus ,accessToken } = response.data;
+    localStorage.setItem("name", name)
     localStorage.setItem("userId", userId);
-    localStorage.setItem("email", email);
+    localStorage.setItem("email",email);
+    localStorage.setItem("userTypes", userTypes);
+    localStorage.setItem("userStatus",userStatus);
     localStorage.setItem("token", accessToken);
+
     return response;
 
   } catch (error) {

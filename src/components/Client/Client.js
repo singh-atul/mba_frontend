@@ -217,9 +217,11 @@ const clearState=()=>{
 
 
 return (
-    <div>
-        <h3>Client Page</h3>
-        <MaterialTable
+    <div className="container bg-light my-2">
+        <h3 className="text-center">Welcome, Client!</h3>
+            <p className="text-center text-secondary">Take a quick look at your stats below</p>
+           <div className="my-2">
+           <MaterialTable
                         title="THEATERS "
                       data={cinemaList}
                       columns={[
@@ -265,14 +267,16 @@ return (
                         }],
                         
                         headerStyle: {
-                          backgroundColor: 'lightgreen',
-                          color: '#000'
+                          backgroundColor: '#202429',
+                          color: '#fff'
                         },
                         rowStyle: {
                           backgroundColor: '#EEE',
                         }
                     }}
                   />
+           </div>
+       
        
         {   
 
@@ -414,11 +418,11 @@ return (
                         }],
                         
                         headerStyle: {
-                          backgroundColor: 'lightgreen',
-                          color: '#000'
+                          backgroundColor: '#202429',
+                          color: '#fff'
                         },
                         rowStyle: {
-                          backgroundColor: '#EEE',
+                          backgroundColor: 'white',
                         }
                     }}
                   />

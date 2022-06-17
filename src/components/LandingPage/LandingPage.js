@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import Navbar from "../Navbar/Navbar"
-import Slider from '../Slider/Slider'
-import './LandingPage.css';
+import Navbar from "../navbar/navbar"
+import Slider from '../slider/slider'
+import './landingPage.css';
 import {getAllMovies} from '../../api/movie'
-import Cinemas from "../Cinemas/Cinemas";
+import Cinemas from "../cinemas/cinemas";
 const LandingPage = () => {
     const [movieList, setMovieList] = useState([]);
     const [pageLoading, setPageLoading] = useState(true);

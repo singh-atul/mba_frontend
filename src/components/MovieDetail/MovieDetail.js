@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
-import './MovieDetail.css';
 import { getMovie } from '../../api/movie'
-import Footer from '../Footer/Footer'
-import Navbar from '../Navbar/Navbar'
-import './MovieDetail.css'
+import Footer from '../footer/footer'
+import Navbar from '../navbar/navbar'
+import './movieDetail.css'
 
 const MovieDetail = () => {
     const { movieid: id } = useParams();

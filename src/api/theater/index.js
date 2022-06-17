@@ -1,6 +1,6 @@
 
 
-import { AxiosInstance } from "../../util/AxiosInstance";
+import { AxiosInstance } from "../../util/axiosInstance";
 
 export const getAllTheaters = async () => {
 

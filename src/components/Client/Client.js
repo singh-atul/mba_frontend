@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button } from 'react-bootstrap'
-import './Client.css';
+import './client.css';
 import {addNewTheater,getAllTheaters,updateTheaterDetails,deleteTheaterDetail,getTheaterById, updateTheaterMovie} from '../../api/theater'
 import { cities } from "../../util/cities";
 import {getAllMovies,addNewMovie,removeMovie,updateMovieDetails} from '../../api/movie'

@@ -1,12 +1,12 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Booking from "../Booking/Booking";
-import LandingPage from "../LandingPage/LandingPage";
-import MovieDetail from "../MovieDetail/MovieDetail"
-import Admin from "../Admin/Admin"
+import Booking from "../booking/booking";
+import LandingPage from "../landingPage/landingPage";
+import MovieDetail from "../movieDetail/movieDetail"
+import Admin from "../admin/admin"
 
-import Client from "../Client/Client"
-import Auth from "../Auth/Auth";
+import Client from "../client/client"
+import Auth from "../auth/auth";
 
 const AppRoutes = () => {
   return (

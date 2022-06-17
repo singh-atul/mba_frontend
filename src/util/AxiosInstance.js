@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TIMEOUT, API_BASE_URL } from "../config/Config";
+import { TIMEOUT, API_BASE_URL } from "../config/config";
 
 
 

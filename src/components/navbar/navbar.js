@@ -2,7 +2,7 @@ import { CButton } from '@coreui/react';
 import SuggestionInputSearch from "suggestion-react-input-search";
 import {signIn,signUp,signOut} from '../../api/auth'
 import { useNavigate } from 'react-router-dom';
-import userAuth from '../auth/auth'
+import UserAuth from '../auth/auth'
 const Navbar = (props) => {
     const navigate = useNavigate();
 
@@ -14,7 +14,7 @@ const Navbar = (props) => {
     return (
         <>
             <div className="bg-light px-2">
-                <userAuth/>111               
+                <UserAuth/>111               
                 <div className="row text-center">
                     <div className="col-lg-2 col-sm-12">
                         <div className="display-6 text-danger py-1">MBA</div>

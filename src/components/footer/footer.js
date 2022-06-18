@@ -1,7 +1,7 @@
 function Footer() {
     return (
         <div className="bg-dark text-light" >
-            <div className="bg-black py-2">
+            {/* <div className="bg-black py-2">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-6 col-xs-12">
@@ -11,7 +11,7 @@ function Footer() {
                             Got a show, event, activity or a great experience? Partner with us & get listed on MBA! </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="my-auto p-2">
             <h4 className="text-center text-danger my-auto fw-bolder">
                 MBA

@@ -1,12 +1,11 @@
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Booking from "../booking/booking";
-import LandingPage from "../landingPage/landingPage";
-import MovieDetail from "../movieDetail/movieDetail"
-import Admin from "../admin/admin"
-
+import MovieTheaters from "../../pages/movieTheaters/movieTheaters";
+import LandingPage from "../../pages/landingPage/landingPage";
+import MovieDetail from "../../pages/movieDetail/movieDetail"
+import Admin from "../../pages/admin/admin"
 import Client from "../client/client"
-import Auth from "../auth/auth";
+import Auth from "../../pages/auth/auth";
 
 const AppRoutes = () => {
   return (
@@ -46,7 +45,7 @@ const AppRoutes = () => {
           exact
           path="/buytickets/:moviename/:movieid"
           element={
-            <Booking />
+            <MovieTheaters />
           }
         />
         

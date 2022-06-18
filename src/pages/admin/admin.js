@@ -13,7 +13,7 @@ import Add from '@material-ui/icons/Add';
 import { CWidgetStatsC } from '@coreui/react';
 import { CIcon } from '@coreui/icons-react';
 import { cilChartPie } from '@coreui/icons';
-
+import Navbar from "../../components/navbar/navbar";
 import { ExportCsv, ExportPdf } from '@material-table/exporters';
 
 
@@ -221,6 +221,7 @@ const Admin = () => {
 
     return (
         <div className="container bg-light mt-2">
+            <Navbar/>
             <h3 className="text-center">Welcome, Admin!</h3>
             <p className="text-center text-secondary">Take a quick look at your stats below</p>
             <div className="row">

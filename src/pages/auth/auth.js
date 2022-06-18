@@ -33,12 +33,15 @@ function Login() {
 
 
         const data = {
-            userId: userId,
-            password: password
+            userId,
+            password
         };
 
         const result = await signIn(data);
-        redirectUrl()        
+        if(localStorage.getItem('token'))
+            redirectUrl()
+        else
+            setMessage(result.data.message)      
         }
         
        
@@ -53,10 +56,10 @@ function Login() {
 
         const data = {
             name: username,
-            userId: userId,
-            email: email,
-            userType: userType,
-            password: password
+            userId,
+            email,
+            userType,
+            password
         };
         e.preventDefault();
         signUp(data).then(function (response) {
@@ -91,6 +94,7 @@ function Login() {
 
     return (
 
+        
         <div id="loginPage">
             <div id="loginPage" className="bg-primary d-flex justify-content-center align-items-center vh-100">
 
@@ -125,7 +129,7 @@ function Login() {
                                                         variant="light"
                                                         >
                                                             <Dropdown.Item eventKey="CUSTOMER">CUSTOMER</Dropdown.Item>
-                                                            <Dropdown.Item eventKey="ENGINEER">ENGINEER</Dropdown.Item>
+                                                            <Dropdown.Item eventKey="CLIENT">CLIENT</Dropdown.Item>
                                                         </DropdownButton>
                                                     </div>
                                                 </div>
@@ -136,6 +140,7 @@ function Login() {
                                                     <input type="submit" className="form-control btn btn-primary" value={showSignup ? "Sign Up" : "Log In"} />
                                                 </div>
                                                 <div className="signup-btn text-center" onClick={toggleSignup}>{showSignup ? 'Already have an Account ? Login' : "Don't have an Account? Signup"}</div>
+                                                
                                                 <div className="auth-error-msg text-danger text-center">{message}</div>
                                             </form>
                                     </div>
@@ -157,6 +162,9 @@ function Login() {
                     </div>
                 </footer>
             </div>
+
+
+            
         </div>
         
           

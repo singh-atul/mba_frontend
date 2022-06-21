@@ -6,6 +6,7 @@ import MovieDetail from "../../pages/movieDetail/movieDetail"
 import Admin from "../../pages/admin/admin"
 import Client from "../client/client"
 import Auth from "../../pages/auth/auth";
+import Booking from '../../pages/booking/booking'
 
 const AppRoutes = () => {
   return (
@@ -46,6 +47,14 @@ const AppRoutes = () => {
           path="/buytickets/:moviename/:movieid"
           element={
             <MovieTheaters />
+          }
+        />
+
+  <Route
+          exact
+          path="/movie/:movieid/:theatreid"
+          element={
+            <Booking />
           }
         />
         

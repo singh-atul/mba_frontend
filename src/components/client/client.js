@@ -292,23 +292,37 @@ return (
                     </Modal.Header>
                     <Modal.Body>
                         <form onSubmit={updateTheaterModal ? updateTheater : newTheater}>
-                            <input type="text" name="name" value={tempTheaterDetail.name} placeholder="Theater Name" onChange={updateTempTheaterDetail} required/>
-                            <select name="city" value={tempTheaterDetail.city} onChange={updateTempTheaterDetail} required>
+                        <div class="input-group mb-3">
+                                <span class="input-group-text"><i className="b bi-pencil"></i></span>
+                                <input type="text" name="name" value={tempTheaterDetail.name} placeholder="Theater Name" onChange={updateTempTheaterDetail} required className="form-control"/>
+                            </div>
+                           
+                            <select name="city" value={tempTheaterDetail.city} onChange={updateTempTheaterDetail} required className="form-select form-select-sm">
                                 {
                                     cities.map((city)=>(
                                         <option key={city} value={city}>{city}</option>
                                     ))
                                 }
                             </select>
+
+                            <div class="input-group my-2">
+                            <span class="input-group-text"><i className="bi bi-pencil"></i></span>
+                            <textarea type="text" name="description" value={tempTheaterDetail.description} placeholder="Description" onChange={updateTempTheaterDetail} required className="form-control"/>
+                            </div>
+
+                            <div class="input-group mb-3">
+                            <span class="input-group-text"><i className="bi bi-pencil"></i></span>
+                            <input type="text" name="pinCode" placeholder="PinCode" value={tempTheaterDetail.pinCode} onChange={updateTempTheaterDetail} required className="form-control" />
+                            </div>
                             
-                            <input type="text" name="description" value={tempTheaterDetail.description} placeholder="Description" onChange={updateTempTheaterDetail} required/>
-                            <input type="text" name="pinCode" placeholder="PinCode" value={tempTheaterDetail.pinCode} onChange={updateTempTheaterDetail} required/>
+                          
+                
                             <div className="input-group justify-content-center">
                                 <div className="m-1">
-                                    <Button variant="secondary" onClick={clearState}>Cancel</Button>
+                                    <Button variant="danger" onClick={clearState}>Cancel</Button>
                                 </div>
                                 <div className="m-1">
-                                    <Button type="submit" variant="primary" >{updateTheaterModal ? "EDIT THEATERS" : "ADD THEATER" }</Button>
+                                    <Button type="submit" variant="dark" >{updateTheaterModal ? "EDIT THEATERS" : "ADD THEATER" }</Button>
                                 </div>
                             </div>
                             
@@ -355,8 +369,8 @@ return (
                                     sorting: true,
                                     
                                     headerStyle: {
-                                      backgroundColor: 'lightgreen',
-                                      color: '#000'
+                                      backgroundColor: '#202429',
+                                      color: '#fff'
                                     },
                                     rowStyle: {
                                       backgroundColor: '#EEE',

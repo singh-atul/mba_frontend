@@ -37,7 +37,7 @@ const MovieDetail = () => {
 <>
             <Navbar />
             <div className="bg-light">
-                <div className="box bg-black">
+                <div className="box bg-black backg">
                     <ReactPlayer url={MovieDetails.trailerUrl} controls={true} className="video" width="67%" height="99%" />
                 </div>
                 <div className="container my-4 justify-content-center">

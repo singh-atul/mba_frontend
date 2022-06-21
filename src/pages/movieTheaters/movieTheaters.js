@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import "../booking/booking.css"
 const MovieTheaters = () => {
     const { movieid: movieId } = useParams();
     const [selectedMovieId, setSelectedMovieId] = useState(movieId);
@@ -41,7 +42,7 @@ const MovieTheaters = () => {
         <div>
             <Navbar />
             <div className="bg-light">
-                <div className="bg-black text-center py-3">
+                <div className="bg-black text-center py-3 backg">
                     <h2 className="fw-bolder text-light">{movieDetail.name}</h2>
 
                     <span className="badge rounded-pill text-bg-danger m-1"> {movieDetail.description}</span>
@@ -61,9 +62,9 @@ const MovieTheaters = () => {
 
               
                
-                <div className='container  my-3 '>
-                
-            SELECT THEATER
+                <div className='container  my-3 vh-100'>
+                <h2 className="fw-bold text-dark text-center">SELECT THEATRE</h2>
+            
                 {pageLoaded ? (
                     theatersDetail.map(
                         theater => <li key={theater.name} className="list-group-item ">

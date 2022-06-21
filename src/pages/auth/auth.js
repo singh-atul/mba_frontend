@@ -96,7 +96,7 @@ function Login() {
 
         
         <div id="loginPage">
-            <div id="loginPage" className="bg-primary d-flex justify-content-center align-items-center vh-100">
+            <div id="loginPage" className="bg-danger d-flex justify-content-center align-items-center vh-100">
 
                 <div className="card m-5 p-5 " >
                     <div className="row m-2 ">
@@ -137,7 +137,7 @@ function Login() {
                                                 </>
                                                    }
                                                 <div className="input-group">
-                                                    <input type="submit" className="form-control btn btn-primary" value={showSignup ? "Sign Up" : "Log In"} />
+                                                    <input type="submit" className="form-control btn btn-danger" value={showSignup ? "Sign Up" : "Log In"} />
                                                 </div>
                                                 <div className="signup-btn text-center" onClick={toggleSignup}>{showSignup ? 'Already have an Account ? Login' : "Don't have an Account? Signup"}</div>
                                                 

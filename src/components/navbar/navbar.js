@@ -13,7 +13,7 @@ const Navbar = (props) => {
 
     return (
         <>
-            <div className="bg-light px-2">
+            <div className="bg-dark px-2">
                 <UserAuth/>111               
                 <div className="row text-center">
                     <div className="col-lg-2 col-sm-12">
@@ -25,6 +25,8 @@ const Navbar = (props) => {
                                 onSubmitFunction={props.onMovieSelect}
                                 recentSearches={props.movies}
                                 placeholder="Seach for movie ..."
+                                inputPosition="center"
+                                inputClass="form-control"
                             />
                     </div>
                     <div className="col-lg-2 p-2 col-sm-4 ">

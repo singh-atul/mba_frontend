@@ -3,6 +3,7 @@ import './booking.css'
 import React, { useState } from 'react'
 import clsx from 'clsx'
 import Footer from '../../components/footer/footer'
+import Payment from '../../components/payment/payment'
 import { Navbar } from 'react-bootstrap'
 
 const movies = [
@@ -55,9 +56,13 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
         </span>
         
       </p>
-      <button className='btn btn-danger'>Confirm Payment</button>
+      <Payment />
+      <button className='btn btn-danger' >Confirm Payment</button>
+     
      
     </div>
+
+   
     <Footer />
     </>
   )

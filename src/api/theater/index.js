@@ -16,7 +16,7 @@ export const getAllTheaters = async () => {
   }
 
   export const getTheaterById = async (cinemaId) => {
-
+console.log("Sending ",cinemaId)
     const URL = `/mba/api/v1/theatres/${cinemaId}`;
   
     try {

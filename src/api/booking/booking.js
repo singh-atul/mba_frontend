@@ -16,3 +16,17 @@ import { AxiosInstance } from "../../util/axiosInstance";
   
   }
 
+  export const getBooking = async () => {
+
+    const URL = '/mba/api/v1/bookings';
+    
+    try {      
+      const response = await AxiosInstance.get(URL);
+      return response;
+    } catch (error) {
+        console.log(error);
+        throw error;
+  
+    }
+  
+  }

@@ -21,8 +21,6 @@ function Payment(props) {
         }        
         const paymentDetail = await makePayment(data);
         setPaymentDetail(paymentDetail.data)
-        console.log("@@@")
-        console.log(paymentDetail)
     }
     const openModal = async () => {
         const data = {

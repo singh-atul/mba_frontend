@@ -7,6 +7,7 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import "../booking/booking.css"
+
 const MovieTheaters = () => {
     const { movieid: movieId } = useParams();
     const [selectedMovieId, setSelectedMovieId] = useState(movieId);
@@ -77,14 +78,14 @@ const MovieTheaters = () => {
                                 </div>
                             <div className="col">
                             <div className="p-2 text-success fw-bold">
-                            <i class="bi bi-phone-fill text-success"></i>
+                            <i className="bi bi-phone-fill text-success"></i>
                                 m-Ticket 
                                </div>
                             </div>
 
                             <div className="col">
                             <div className="p-2 text-danger fw-bold">
-                               <i class="bi bi-cup-straw text-danger"></i>
+                               <i className="bi bi-cup-straw text-danger"></i>
                                Food and Beverages
                                </div>
                             </div>

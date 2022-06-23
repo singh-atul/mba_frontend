@@ -4,6 +4,7 @@ import './client.css';
 import {addNewTheater,getAllTheaters,updateTheaterDetails,deleteTheaterDetail,getTheaterById, updateTheaterMovie} from '../../api/theater'
 import { cities } from "../../util/cities";
 import {getAllMovies,addNewMovie,removeMovie,updateMovieDetails} from '../../api/movie'
+import Navbar from "../../components/navbar/navbar";
 
 import { getAllUsers ,updateUserInfo} from "../../api/user";
 import MaterialTable from "@material-table/core";
@@ -218,6 +219,7 @@ const clearState=()=>{
 
 return (
     <div className="container bg-light my-2">
+        <Navbar/>
         <h3 className="text-center">Welcome, Client!</h3>
             <p className="text-center text-secondary">Take a quick look at your stats below</p>
            <div className="my-2">
@@ -292,8 +294,8 @@ return (
                     </Modal.Header>
                     <Modal.Body>
                         <form onSubmit={updateTheaterModal ? updateTheater : newTheater}>
-                        <div class="input-group mb-3">
-                                <span class="input-group-text"><i className="b bi-pencil"></i></span>
+                        <div className="input-group mb-3">
+                                <span className="input-group-text"><i className="b bi-pencil"></i></span>
                                 <input type="text" name="name" value={tempTheaterDetail.name} placeholder="Theater Name" onChange={updateTempTheaterDetail} required className="form-control"/>
                             </div>
                            
@@ -305,13 +307,13 @@ return (
                                 }
                             </select>
 
-                            <div class="input-group my-2">
-                            <span class="input-group-text"><i className="bi bi-pencil"></i></span>
+                            <div className="input-group my-2">
+                            <span className="input-group-text"><i className="bi bi-pencil"></i></span>
                             <textarea type="text" name="description" value={tempTheaterDetail.description} placeholder="Description" onChange={updateTempTheaterDetail} required className="form-control"/>
                             </div>
 
-                            <div class="input-group mb-3">
-                            <span class="input-group-text"><i className="bi bi-pencil"></i></span>
+                            <div className="input-group mb-3">
+                            <span className="input-group-text"><i className="bi bi-pencil"></i></span>
                             <input type="text" name="pinCode" placeholder="PinCode" value={tempTheaterDetail.pinCode} onChange={updateTempTheaterDetail} required className="form-control" />
                             </div>
                             

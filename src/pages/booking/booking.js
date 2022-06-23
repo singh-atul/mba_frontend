@@ -1,9 +1,10 @@
 
 import './booking.css'
-import React, { useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import clsx from 'clsx'
 import Footer from '../../components/footer/footer'
-import { Navbar } from 'react-bootstrap'
+import Navbar from '../../components/navbar/navbar'
+import { useNavigate } from 'react-router-dom';
 
 const movies = [
   {
@@ -33,10 +34,21 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
  function Booking() {
   const [selectedMovie, setSelectedMovie] = useState(movies[0])
   const [selectedSeats, setSelectedSeats] = useState([])
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(localStorage.getItem('token'));
+    if(localStorage.getItem('token')===null){
+      navigate('/login');
+    }
+}, [])
+
+
+
 
   return (
     <>
-  
+    <Navbar />
     <div className="App bg-black backg">
         
     <h2 className="fw-bold text-light">MOVIE NAME</h2>
@@ -55,7 +67,7 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
         </span>
         
       </p>
-      <button className='btn btn-danger'>Confirm Payment</button>
+      <button className='btn btn-danger'>Proceed to Payment</button>
      
     </div>
     <Footer />
@@ -114,6 +126,7 @@ function Cinema({ movie, selectedSeats, onSelectedSeatsChange }) {
 
   return (
     <div className="Cinema">
+      
       <div className="screen" />
 
       <div className="seats">

@@ -19,6 +19,7 @@ import { ExportCsv, ExportPdf } from '@material-table/exporters';
 
 const Admin = () => {
 
+    const [userId,setUserId] = useState(localStorage.getItem('userId'))
     const [addTheaterModal, showAddTheaterModal] = useState(false);
     const [updateTheaterModal, showUpdateTheaterModal] = useState(false);
     const [tempTheaterDetail, setTempTheaterDetail] = useState({});
@@ -35,6 +36,7 @@ const Admin = () => {
 
     const [counterInfo, setCounterInfo] = useState({});
 
+    const [errorMessage,setErrorMessage] = useState(""); 
     const refreshTheaters = async () => {
         const result = await getAllTheaters();
         setCinemaList(result.data);
@@ -49,7 +51,8 @@ const Admin = () => {
 
     const refreshUsers = async () => {
         const userResult = await getAllUsers();
-        setUserList(userResult.data)
+        console.log(userResult)
+        setUserList(userResult.data.filter(user => user.userId != localStorage.getItem('userId')))
         counterInfo.userResult = userResult.data.length
     }
 
@@ -101,9 +104,16 @@ const Admin = () => {
     const newTheater = async (event) => {
         event.preventDefault();
         tempTheaterDetail.userId = "62a38a762f4e41d6b8b8fb48"
-        await addNewTheater(tempTheaterDetail);
-        refreshTheaters()
-        clearState()
+        const response = await addNewTheater(tempTheaterDetail);
+        if(response.status==201)
+        {
+            refreshTheaters()
+            clearState()
+        }
+        else{
+            setErrorMessage(response.data.message)
+        }
+        
         // eslint-disable-next-line react-hooks/exhaustive-deps
 
     }
@@ -145,6 +155,7 @@ const Admin = () => {
         else if (e.target.name === "pinCode")
             tempTheaterDetail.pinCode = e.target.value
         setTempTheaterDetail(Object.assign({}, tempTheaterDetail))
+        setErrorMessage("")
     }
 
 
@@ -154,6 +165,7 @@ const Admin = () => {
 
     const addMovie = () => {
         showAddMovieModal(true);
+
     }
     const updateTempMovieDetail = (e) => {
         if (e.target.name === "name")
@@ -178,6 +190,8 @@ const Admin = () => {
 
     const newMovie = async (event) => {
         event.preventDefault();
+        if(tempMovieDetail.releaseStatus===undefined)
+            tempMovieDetail.releaseStatus="RELEASED"
         await addNewMovie(tempMovieDetail);
         refreshMovies()
         clearState()
@@ -215,6 +229,8 @@ const Admin = () => {
         showUpdateMovieModal(false);
         setUserModal(false);
         setTempTheaterDetail({});
+        setTempMovieDetail({});
+        
     }
 
 
@@ -344,24 +360,25 @@ const Admin = () => {
                     </Modal.Header>
                     <Modal.Body>
                         <form onSubmit={updateTheaterModal ? updateTheater : newTheater}>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text"><i className="b bi-pencil"></i></span>
+                            <div className="input-group mb-3">
+                                <span className="input-group-text"><i className="b bi-pencil"></i></span>
                                 <input type="text" name="name" value={tempTheaterDetail.name} placeholder="Theater Name" onChange={updateTempTheaterDetail} required className="form-control" />
                             </div>
                             
-                            <select name="city" className="form-select form-select-sm" value={tempTheaterDetail.city} onChange={updateTempTheaterDetail} required>
+                            <select name="city" className="form-select form-select-sm" value={tempTheaterDetail.city}  onChange={updateTempTheaterDetail} required>
+                                <option>Select City</option>
                                 {
                                     cities.map((city) => (
                                         <option key={city} value={city}>{city}</option>
                                     ))
                                 }
                             </select>
-                            <div class="input-group my-2">
-                            <span class="input-group-text"><i className="bi bi-pencil"></i></span>
+                            <div className="input-group my-2">
+                            <span className="input-group-text"><i className="bi bi-pencil"></i></span>
                             <textarea type="text" name="description" value={tempTheaterDetail.description} placeholder="Description" onChange={updateTempTheaterDetail} required className="form-control" />
                             </div>
-                            <div class="input-group mb-3">
-                            <span class="input-group-text"><i className="bi bi-pencil"></i></span>
+                            <div className="input-group mb-3">
+                            <span className="input-group-text"><i className="bi bi-pencil"></i></span>
                             <input type="text" name="pinCode" placeholder="PinCode" value={tempTheaterDetail.pinCode} onChange={updateTempTheaterDetail} required className="form-control" />
                             </div>
                            
@@ -432,6 +449,7 @@ const Admin = () => {
                             }
 
                         </form>
+                        <div className="auth-error-msg text-danger text-center">{errorMessage}</div>
                     </Modal.Body>
                 </Modal>
 
@@ -521,23 +539,23 @@ const Admin = () => {
                     </Modal.Header>
                     <Modal.Body>
                         <form onSubmit={updateMovieModal ? updateMovie : newMovie}>
-                        <div class="input-group my-2">
-                            <span class="input-group-text"><i className="bi bi-pencil"></i></span>
-                            <input type="text" name="name" value={tempMovieDetail.name} placeholder="Movie Name" onChange={updateTempMovieDetail} required className="form-control"/>
+                        <div className="input-group my-2">
+                            <span className="input-group-text"><i className="bi bi-pencil"></i></span>
+                            <input type="text" name="name" className="form-control" value={tempMovieDetail.name} placeholder="Movie Name" onChange={updateTempMovieDetail} required />
                              </div>
-                             <div class="input-group my-2">
-                            <span class="input-group-text"><i className="bi bi-pencil"></i></span> 
+                             <div className="input-group my-2">
+                            <span className="input-group-text"><i className="bi bi-pencil"></i></span> 
                             <textarea type="text" name="description" className="form-control" value={tempMovieDetail.description} placeholder="Description" onChange={updateTempMovieDetail} required />
                             </div>
 
                             <div className="d-flex ">
-                            <div class="input-group me-1">
-                            <span class="input-group-text"><i className="b bi-pencil"></i></span>
+                            <div className="input-group me-1">
+                            <span className="input-group-text"><i className="b bi-pencil"></i></span>
                             <input type="text" name="director" value={tempMovieDetail.director} placeholder="director" onChange={updateTempMovieDetail} required className="form-control" />
                              </div>
 
-                             <div class="input-group ms-1">
-                            <span class="input-group-text"><i className="b bi-pencil"></i></span> 
+                             <div className="input-group ms-1">
+                            <span className="input-group-text"><i className="b bi-pencil"></i></span> 
                             <input type="text" name="language" value={tempMovieDetail.language} placeholder="language" onChange={updateTempMovieDetail} required className="form-control" />
                             </div>
                            
@@ -545,13 +563,13 @@ const Admin = () => {
                             </div>
 
                             <div className="d-flex my-2">
-                            <div class="input-group me-1 ">
-                            <span class="input-group-text"><i className="b bi-link-45deg"></i></span> 
+                            <div className="input-group me-1 ">
+                            <span className="input-group-text"><i className="b bi-link-45deg"></i></span> 
                             <input type="text" name="posterUrl" value={tempMovieDetail.posterUrl} placeholder="posterUrl" onChange={updateTempMovieDetail} required className="form-control" />
                             </div>
 
-                            <div class="input-group ms-1 ">
-                            <span class="input-group-text"><i className="b bi-link-45deg"></i></span> 
+                            <div className="input-group ms-1 ">
+                            <span className="input-group-text"><i className="b bi-link-45deg"></i></span> 
                             <input type="text" name="trailerUrl" value={tempMovieDetail.trailerUrl} placeholder="trailerUrl" onChange={updateTempMovieDetail} required className="form-control" /></div>
                            
 
@@ -561,17 +579,17 @@ const Admin = () => {
 
                            
 
-                            <div class="input-group my-2">
-                            <span class="input-group-text"><i className="b bi-pencil"></i></span> 
-                            <select name="releaseStatus" value={tempMovieDetail.releaseStatus} onChange={updateTempMovieDetail} required className="form-select form-select-sm">
-                                <option value="RELEASED" selected>RELEASED </option>
+                            <div className="input-group my-2">
+                            <span className="input-group-text"><i className="b bi-pencil"></i></span> 
+                            <select name="releaseStatus" value={tempMovieDetail.releaseStatus} onChange={updateTempMovieDetail} defaultValue="RELEASED" required className="form-select form-select-sm">
+                                <option value="RELEASED">RELEASED </option>
                                 <option value="UNRELEASED">UNRELEASED</option>
                                 <option value="BLOCKED">BLOCKED</option>
                             </select>
                             </div>
 
-                            <div class="input-group my-2">
-                            <span class="input-group-text"><i className="bi bi-pencil"></i></span> 
+                            <div className="input-group my-2">
+                            <span className="input-group-text"><i className="bi bi-pencil"></i></span> 
                             <input type="text" name="releaseDate" value={tempMovieDetail.releaseDate} placeholder="releaseDate" onChange={updateTempMovieDetail} required className="form-control" />
                             </div>
 
@@ -593,9 +611,8 @@ const Admin = () => {
                                     <Button type="submit" variant="dark" >{updateMovieModal ? "EDIT Movie" : "Add Movie"}</Button>
                                 </div>
                             </div>
-
-
                         </form>
+                        <div className="auth-error-msg text-danger text-center">{errorMessage}</div>
                     </Modal.Body>
                 </Modal>
 

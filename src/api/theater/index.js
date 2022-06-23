@@ -11,7 +11,7 @@ export const getAllTheaters = async () => {
       return response;
     } catch (error) {
         console.log(error);
-      throw error;
+        return error.response;
     }
   }
 
@@ -24,7 +24,7 @@ export const getAllTheaters = async () => {
       return response;
     } catch (error) {
         console.log(error);
-      throw error;
+        return error.response;
     }
   }
 
@@ -41,7 +41,7 @@ export const getAllTheaters = async () => {
       return response;
     } catch (error) {
         console.log(error);
-      throw error;
+      return error.response;
     }
   
   }
@@ -54,7 +54,7 @@ export const getAllTheaters = async () => {
       return response;
     } catch (error) {
         console.log(error);
-      throw error;
+        return error.response;
     }
   
   }
@@ -67,7 +67,7 @@ export const getAllTheaters = async () => {
       return response;
     } catch (error) {
         console.log(error);
-      throw error;
+        return error.response;
     }
   
   }
@@ -80,19 +80,10 @@ export const getAllTheaters = async () => {
       return response;
     } catch (error) {
         console.log(error);
-      throw error;
+        return error.response;
     }
   
   }
 
 
   
-
-
-
-
-// app.post("/mba/api/v1/theatres", [authJwt.verifyToken, authJwt.isAdmin, verifyTheatreReqBody.validateTheatreRequestBody], theatreController.createTheatre);
-//     app.put("/mba/api/v1/theatres/:id", [authJwt.verifyToken, authJwt.isAdminOrClient, verifyTheatreReqBody.validateTheatreRequestBody], theatreController.updateTheatre);
-//     app.delete("/mba/api/v1/theatres/:id", [authJwt.verifyToken, authJwt.isAdmin], theatreController.deleteTheatre);
-//     app.put("/mba/api/v1/theatres/:id/movies", [authJwt.verifyToken, authJwt.isAdminOrClient], theatreController.addMoviesToATheater);
-    

@@ -8,9 +8,7 @@ export const signIn = async (user) => {
   const URL = '/mba/api/v1/auth/signin';
 
   try {
-    console.log(user)
     const response = await AxiosInstance.post(URL, user);
-    console.log(response);
 
     const { name, userId, email,userTypes,userStatus ,accessToken } = response.data;
     if(accessToken){    
@@ -25,7 +23,7 @@ export const signIn = async (user) => {
 
   } catch (error) {
       console.log(error);
-    throw error;
+    return error.response
   }
 
 }
@@ -36,11 +34,10 @@ export const signUp = async (user) => {
 
   try {
     const response = await AxiosInstance.post(URL, user);
-    console.log(response);
     return response;
   } catch (error) {
       console.log(error);
-    throw error;
+    return error.response;
   }
 
 }

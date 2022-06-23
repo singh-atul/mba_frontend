@@ -7,6 +7,11 @@ import { TIMEOUT, API_BASE_URL } from "../config/config";
 
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.headers.common['Accept'] = 'application/json';
+axios.defaults.headers.common['x-access-token'] = localStorage.getItem("token");
+
+
+
+
 
 export const AxiosInstance = axios.create({
 

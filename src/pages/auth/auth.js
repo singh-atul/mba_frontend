@@ -5,13 +5,22 @@ import {signIn,signUp} from '../../api/auth'
 function Login() {
     const [showSignup, setShowSignup] = useState(false);
     const [message, setMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    
     const [userType, setValue] = useState("CUSTOMER")
-    const [userSignUpData,setUserSignUpData] = useState({})
+    const [userName, setUserName] = useState("") 
+    const [userId, setUserId] = useState("")
+    const [password, setUserPassword] = useState("")
+    const [userEmail, setUserEmail] = useState("")
+
+    
+    
+    
     const navigate = useNavigate();
 
     const redirectUrl = () =>{
       if ( localStorage.getItem("userTypes")=== "CUSTOMER")
-          navigate('/');
+          navigate(-1);
       else if ((localStorage.getItem("userTypes") === "CLIENT"))
           navigate('/client'); 
       else
@@ -25,13 +34,8 @@ function Login() {
       }, []);
 
 
-    const history = useNavigate();
     const loginFn = async (e) => {
         e.preventDefault();
-        const userId = userSignUpData.userId;
-        const password = userSignUpData.password
-
-
         const data = {
             userId,
             password
@@ -41,55 +45,72 @@ function Login() {
         if(localStorage.getItem('token'))
             redirectUrl()
         else
-            setMessage(result.data.message)      
+            setErrorMessage(result.data.message)      
         }
         
        
     
 
-    const signupFn = (e) => {
-        const username =  userSignUpData.username;
-        const userId = userSignUpData.userId;
-        const email = userSignUpData.email;
-        const password = userSignUpData.password
-
-
+    const signupFn = async (e) => {
+        e.preventDefault();
         const data = {
-            name: username,
+            name: userName,
             userId,
-            email,
+            email:userEmail,
             userType,
             password
         };
-        e.preventDefault();
-        signUp(data).then(function (response) {
-                if (response.status === 201) {
-                   history(0);
-                }
-            })
-            .catch(function (error) {
-                if(error.response.status===400)
-                    setMessage(error.response.data.message);
-                else
-                    console.log(error);
-            });
+        
+
+        const response = await signUp(data);
+        if (response.status === 201) {
+            setShowSignup(false);
+            clearState();
+            setMessage("Signed Up successfully");
+        }
+        else{
+            setErrorMessage(response.data.message)
+        }
+        
+                 
     }
 
     const  updateSignupData =(e)=>{
-        userSignUpData[e.target.id]=e.target.value;
+        if(e.target.id==="username")
+            setUserName(e.target.value)
+        else if(e.target.id==="userId")
+            setUserId(e.target.value)
+        else if(e.target.id==="password")
+            setUserPassword(e.target.value)
+        else if(e.target.id==="email")
+            setUserEmail(e.target.value)
+        
+        setMessage("")
+        setErrorMessage("")
     }
 
     const toggleSignup = () => {
-
+        clearState()
         setShowSignup(!showSignup);
-        if(showSignup){
-            setUserSignUpData({});
-    }
+        
     }
 
     const handleSelect = (e) => {
         setValue(e)
 
+    }
+
+    const clearState = (e) =>{
+        setMessage("")
+        setErrorMessage("")
+        setValue("CUSTOMER")
+        setUserName("")
+        setUserId("")
+        setUserPassword("")
+        setUserEmail("")
+
+
+        
     }
 
     return (
@@ -105,17 +126,20 @@ function Login() {
                                             
                                             <form  onSubmit={showSignup ? signupFn: loginFn}>
                                                 <div className="input-group ">
-                                                    <input type="text" className="form-control" placeholder="User Id" id="userId" onChange={updateSignupData}  autoFocus required />
+                                                    <input type="text" className="form-control" placeholder="User Id" id="userId" onChange={updateSignupData} value={userId} autoFocus required />
                                                 
                                                 </div>
-                                                <input type="password" className="form-control" placeholder="Password"  id="password" onChange={updateSignupData} required/>
+                                                <input type="password" className="form-control" placeholder="Password"  id="password" onChange={updateSignupData} value={password} required/>
                                                 {showSignup && <>
                                                 <div className="input-group ">
-                                                    <input type="text" className="form-control" placeholder="Username" id="username" onChange={updateSignupData} required />
+                                                    <input type="text" className="form-control" placeholder="Username" id="username" onChange={updateSignupData} value={userName} required />
                                                 </div>
                                                 <div className="input-group ">    
-                                                    <input type="text" className="form-control" placeholder="Email" id="email" onChange={updateSignupData} required/>
+                                                    <input type="text" className="form-control" placeholder="Email" id="email" onChange={updateSignupData} value={userEmail} required/>
                                                 </div>    
+
+
+
                                                 <div className="row">
                                                     <div className="col">
                                                         <span className="mx-1 my-1"> User Type</span>
@@ -141,7 +165,9 @@ function Login() {
                                                 </div>
                                                 <div className="signup-btn text-center" onClick={toggleSignup}>{showSignup ? 'Already have an Account ? Login' : "Don't have an Account? Signup"}</div>
                                                 
-                                                <div className="auth-error-msg text-danger text-center">{message}</div>
+                                                <div className="auth-error-msg text-success text-center">{message}</div>
+                                                <div className="auth-error-msg text-danger text-center">{errorMessage}</div>
+                                                
                                             </form>
                                     </div>
                                 

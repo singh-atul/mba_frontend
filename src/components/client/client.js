@@ -218,8 +218,10 @@ const clearState=()=>{
 
 
 return (
+    <>
+     <Navbar/>
     <div className="container bg-light my-2">
-        <Navbar/>
+       
         <h3 className="text-center">Welcome, Client!</h3>
             <p className="text-center text-secondary">Take a quick look at your stats below</p>
            <div className="my-2">
@@ -443,6 +445,7 @@ return (
                     }}
                   />
     </div>
+    </>
     
 )
 }

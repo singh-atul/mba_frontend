@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Dropdown, DropdownButton } from "react-bootstrap";
 import {signIn,signUp} from '../../api/auth'
+import "../booking/booking.css"
 function Login() {
     const [showSignup, setShowSignup] = useState(false);
     const [message, setMessage] = useState("");
@@ -117,9 +118,9 @@ function Login() {
 
         
         <div id="loginPage">
-            <div id="loginPage" className="bg-danger d-flex justify-content-center align-items-center vh-100">
+            <div id="loginPage" className="bg-dark backg d-flex justify-content-center align-items-center vh-100">
 
-                <div className="card m-5 p-5 " >
+                <div className="card m-5 p-5 bg-dark text-light shadow-lg" >
                     <div className="row m-2 ">
                                     <div >
                                         <h4 className="text-center ">{showSignup ? 'Sign up' : 'Login'}</h4>
@@ -175,7 +176,7 @@ function Login() {
                 </div>
             
             </div>
-            <div style={{
+            {/* <div style={{
                 position: "fixed",
                 left: 0,
                 bottom: 0,
@@ -187,7 +188,7 @@ function Login() {
                         <a href="https://relevel.com">Relevel by Unacademy</a>
                     </div>
                 </footer>
-            </div>
+            </div> */}
 
 
             

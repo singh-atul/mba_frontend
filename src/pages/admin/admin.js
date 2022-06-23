@@ -260,21 +260,7 @@ const Admin = () => {
         <>
         <p className="text-center text-secondary">Take a quick look at your stats below</p>
                 <div className="row">
-                    <div className="col">
-                        <CWidgetStatsC
-                            className="mb-3"
-                            icon={<i className="bi bi-people text-danger" />}
-                            color={showUserTable? "success":"dark"}
-                            inverse
-                            progress={{ value: counterInfo.userResult }}
-                            text="Number of Users"
-                            title="Users"
-                            value={counterInfo.userResult ? counterInfo.userResult : "Add Users"}
-                            onClick={()=>setShowUserTable(!showUserTable)}
-                        />
-
-
-                    </div>
+                   
                     <div className="col">
                         <CWidgetStatsC
                             className="mb-3"
@@ -303,19 +289,34 @@ const Admin = () => {
 
                         />
                     </div>
-                    <div className="col">
+                    <div className="col view overlay zoom">
                         <CWidgetStatsC
-                            className="mb-3"
+                            className="mb-3 mask flex-center"
                             icon={<i className="bi bi-card-list text-danger" />}
                             color={showBookingTable? "success":"dark"}
                             inverse
                             progress={{ value: counterInfo.booking }}
                             text="Number of Booking"
                             title="Bookings"
-                            value={counterInfo.booking}
+                            value={counterInfo.booking ? counterInfo.booking : "Add booking"}
                             onClick={()=>setShowBookingTable(!showBookingTable)}
 
                         />
+                    </div>
+                    <div className="col">
+                        <CWidgetStatsC
+                            className="mb-3"
+                            icon={<i className="bi bi-people text-danger" />}
+                            color={showUserTable? "success ":"dark"}
+                            inverse
+                            progress={{ value: counterInfo.userResult }}
+                            text="Number of Users"
+                            title="Users"
+                            value={counterInfo.userResult ? counterInfo.userResult : "Add Users"}
+                            onClick={()=>setShowUserTable(!showUserTable)}
+                        />
+
+
                     </div>
 
 
@@ -327,13 +328,16 @@ const Admin = () => {
         )
     }
     return (
+        <>
+         <Navbar/>
 
         <div className="container bg-light mt-2">
+        <h3 className="text-center">Welcome, Admin!</h3>
             
-            <Navbar/>
+           
             <Cards/>
 
-            <h3 className="text-center">Welcome, Admin!</h3>
+          
             
                 
     
@@ -395,7 +399,7 @@ const Admin = () => {
                                 color: 'white'
                             },
                             rowStyle: {
-                                backgroundColor: '#d3d3d3',
+                                backgroundColor: '#eee',
                             }
                         }}
                     />
@@ -505,7 +509,7 @@ const Admin = () => {
                                                         color: 'white'
                                                     },
                                                     rowStyle: {
-                                                        backgroundColor: '#EEE',
+                                                        backgroundColor: '#eee',
                                                     }
                                                 }}
                                             />
@@ -586,7 +590,7 @@ const Admin = () => {
                                 color: 'white'
                             },
                             rowStyle: {
-                                backgroundColor: '#white',
+                                backgroundColor: '#eee',
                             }
                         }}
                     />
@@ -747,7 +751,7 @@ const Admin = () => {
                         color: '#FFF'
                     },
                     rowStyle: {
-                        backgroundColor: '#EEE',
+                        backgroundColor: '#eee',
                     }
                 }}
                 title="USER RECORDS"
@@ -873,7 +877,7 @@ const Admin = () => {
                             color: '#FFF'
                         },
                         rowStyle: {
-                            backgroundColor: '#EEE',
+                            backgroundColor: '#eee',
                         }
                     }}
                     title="BOOKING RECORDS"
@@ -886,6 +890,7 @@ const Admin = () => {
 
 
         </div>
+        </>
         
     
 

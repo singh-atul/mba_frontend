@@ -1,12 +1,15 @@
 import { Modal } from 'react-bootstrap';
 import {useState} from 'react';
 import { createBooking } from '../../api/booking/booking';
-import {makePayment} from '../../api/payment/payment'
+import {makePayment} from '../../api/payment/payment';
+import Loader from '../../assets/simpson.gif'
 function Payment(props) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [bookingDetail, setBookingDetail] = useState({});
     const [paymentDetail, setPaymentDetail] = useState({});
+
+    console.log(paymentDetail);
     
 
 
@@ -70,7 +73,24 @@ function Payment(props) {
                 </div>
                 {
                     paymentDetail.status==="SUCCESS" ? (
-                        <>DONE</>
+                        <>
+                        <img src= {Loader} />
+                       <div className="bg-success py-1  text-white text-center shadow-lg rounded-3 bg-opacity-75 ">
+                       
+                        <small className=' fw-bolder'>Booking Confirmed! </small>
+                       
+                        <div className="row text-center my-2">
+                            <div className="col-3">
+                            <small className=' fw-bolder'> m-ID:</small>
+                            </div>
+                            <div className="col-9">
+                            <small className='text-uppercase'>{paymentDetail.bookingId}</small>
+                            </div>
+                            
+                           
+                        </div>
+                       </div>
+                       </>
                     ) : (
                         <button className='btn btn-danger' onClick={finalizePayment}>Confirm Payment</button>
                     )

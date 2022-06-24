@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import Navbar from "../../components/navbar/navbar";
 import Slider from '../../components/slider/slider';
 import Footer from '../../components/footer/footer';
-import {getAllMovies} from '../../api/movie'
+import {getAllMovies} from '../../api/movie';
+
+import Loader from '../../assets/load.gif'
 import './landingPage.css';
 const LandingPage = () => {
     const [movieList, setMovieList] = useState([]);
@@ -60,7 +62,9 @@ const LandingPage = () => {
                   </div>
                   <Footer/>
                 </>
-              ):<div>Fetching Movies from backend...</div>
+              ):<div className="d-flex justify-content-center align-items-center vh-100">
+                <img src ={Loader} alt="loading.." />
+              </div>
               
             }
             

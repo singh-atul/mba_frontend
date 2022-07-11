@@ -118,30 +118,33 @@ function Login() {
 
         
         <div id="loginPage">
-            <div id="loginPage" className="bg-dark backg d-flex justify-content-center align-items-center vh-100">
+            <div id="loginPage" className="bg-dark d-flex justify-content-center align-items-center vh-100">
 
-                <div className="card m-5 p-5 bg-dark text-light shadow-lg" >
+                <div className="card m-5 p-5 bg-dark text-light shadow-lg d-flex align-items-center justify-content-center vh-100 backg"  >
                     <div className="row m-2 ">
                                     <div >
                                         <h4 className="text-center ">{showSignup ? 'Sign up' : 'Login'}</h4>
                                             
                                             <form  onSubmit={showSignup ? signupFn: loginFn}>
                                                 <div className="input-group ">
-                                                    <input type="text" className="form-control" placeholder="User Id" id="userId" onChange={updateSignupData} value={userId} autoFocus required />
+                                                    <input type="text" className="form-control m-1" placeholder="User Id" id="userId" onChange={updateSignupData} value={userId} autoFocus required />
                                                 
                                                 </div>
-                                                <input type="password" className="form-control" placeholder="Password"  id="password" onChange={updateSignupData} value={password} required/>
+                                                <div className="input-group">
+                                                <input type="password" className="form-control m-1" placeholder="Password"  id="password" onChange={updateSignupData} value={password} required/>
+
+                                                </div>
                                                 {showSignup && <>
                                                 <div className="input-group ">
-                                                    <input type="text" className="form-control" placeholder="Username" id="username" onChange={updateSignupData} value={userName} required />
+                                                    <input type="text" className="form-control m-1" placeholder="Username" id="username" onChange={updateSignupData} value={userName} required />
                                                 </div>
                                                 <div className="input-group ">    
-                                                    <input type="text" className="form-control" placeholder="Email" id="email" onChange={updateSignupData} value={userEmail} required/>
+                                                    <input type="text" className="form-control m-1" placeholder="Email" id="email" onChange={updateSignupData} value={userEmail} required/>
                                                 </div>    
 
 
 
-                                                <div className="row">
+                                                <div className="row m-1">
                                                     <div className="col">
                                                         <span className="mx-1 my-1"> User Type</span>
                                                     </div>
@@ -164,7 +167,7 @@ function Login() {
                                                 <div className="input-group">
                                                     <input type="submit" className="form-control btn btn-danger" value={showSignup ? "Sign Up" : "Log In"} />
                                                 </div>
-                                                <div className="signup-btn text-center" onClick={toggleSignup}>{showSignup ? 'Already have an Account ? Login' : "Don't have an Account? Signup"}</div>
+                                                <div className="signup-btn text-center pe" onClick={toggleSignup}>{showSignup ? 'Already have an Account ? Login' : "Don't have an Account? Signup"}</div>
                                                 
                                                 <div className="auth-error-msg text-success text-center">{message}</div>
                                                 <div className="auth-error-msg text-danger text-center">{errorMessage}</div>

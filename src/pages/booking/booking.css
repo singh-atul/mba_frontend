@@ -1,6 +1,9 @@
 .backg{
     background-image: url("../../assets/img.jpg");
 }
+.pe{
+  cursor: pointer;
+}
 
 .App {
   text-align: center;

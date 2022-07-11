@@ -1,7 +1,7 @@
 import { CButton } from '@coreui/react';
 import SuggestionInputSearch from "suggestion-react-input-search";
 import {signIn,signUp,signOut} from '../../api/auth'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 const Navbar = (props) => {
     const navigate = useNavigate();
 
@@ -12,10 +12,13 @@ const Navbar = (props) => {
 
     return (
         <>
-            <div className="bg-dark px-2">
+            <div className="bg-dark px-2 sticky-top">
                 <div className="row text-center">
                     <div className="col-lg-2 col-sm-12">
+                        <Link to="/" className='text-decoration-none'>
                         <div className="display-6 text-danger py-1">MBA</div>
+                        </Link>
+                       
                     </div>
                     <div className="col-lg-8 col-sm-8 py-2 ">
                         
@@ -31,7 +34,7 @@ const Navbar = (props) => {
                         {
                             !localStorage.getItem('token') ? (
                                 <CButton type="submit" color="danger" className='px-3' onClick={()=>{window.location.href='/login'}} >
-                                    Login
+                                    Login / Signup
                                 </CButton>
                             ):
                             <CButton type="submit" color="danger" className='px-3' onClick={logout} >

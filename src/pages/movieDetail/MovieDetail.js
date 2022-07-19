@@ -8,8 +8,7 @@ import './movieDetail.css'
 
 const MovieDetail = () => {
     const { movieid: id } = useParams();
-    const [selectedMovie, setSelectedMovie] = useState(id);
-    const [isLoggedin, setIsLoggedin] = useState(false);
+    const selectedMovie = useState(id);
     const [MovieDetails, setMovieDetails] = useState({});
     const [releaseStatus, setMovieReleaseStatus] = useState(false);
     const [movieCast, setMovieCast] = useState([]);
@@ -17,8 +16,6 @@ const MovieDetail = () => {
 
     const init = async () => {
 
-        const user = localStorage.getItem('userId');
-        if (user) setIsLoggedin(true);
         const response = await getMovie(selectedMovie);
         setMovieDetails(response.data);
         setMovieReleaseStatus(response.data.releaseStatus === "RELEASED")

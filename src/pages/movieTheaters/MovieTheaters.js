@@ -10,7 +10,7 @@ import "../booking/booking.css"
 
 const MovieTheaters = () => {
     const { movieid: movieId } = useParams();
-    const [selectedMovieId, setSelectedMovieId] = useState(movieId);
+    const selectedMovieId = useState(movieId);
     const [movieDetail, setMovieDetails] = useState({});
     const [theatersDetail, setTheaterDetails] = useState({});
     const [pageLoaded, setPageLoading] = useState(false);
@@ -29,7 +29,7 @@ const MovieTheaters = () => {
         setMovieDetails(response.data);
 
         setPageLoading(true);
-
+        
 
     }
 

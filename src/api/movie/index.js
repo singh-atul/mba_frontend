@@ -7,7 +7,6 @@ export const getAllMovies = async () => {
     try {
   
       const response = await AxiosInstance.get(URL);
-      const { username, id, accessToken } = response.data;
       return response;
   
     } catch (error) {

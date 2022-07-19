@@ -11,7 +11,7 @@ function Payment(props) {
     const [bookingDetail, setBookingDetail] = useState({});
     const [paymentDetail, setPaymentDetail] = useState({});
     const navigate = useNavigate();
-    
+
     const closeModal = () => {
         setIsOpen(false)
         if(paymentDetail.status==="SUCCESS")
@@ -75,7 +75,7 @@ function Payment(props) {
                 {
                     paymentDetail.status==="SUCCESS" ? (
                         <>
-                        <img src= {Loader} />
+                        <img alt="" src= {Loader} />
                        <div className="bg-success py-1  text-white text-center shadow-lg rounded-3 bg-opacity-75 ">
                        
                         <small className=' fw-bolder'>Booking Confirmed! </small>

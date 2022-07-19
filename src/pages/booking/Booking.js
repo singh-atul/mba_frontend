@@ -16,15 +16,15 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
   const { theatreid: theatreId } = useParams();
   const [pageLoaded, setPageLoading] = useState(false);
 
-  const [selectedMovieId, setSelectedMovieId] = useState(movieId);
-  const [selectedTheaterId, setTheaterMovieId] = useState(theatreId);
+  const selectedMovieId  = useState(movieId);
+  const selectedTheaterId  = useState(theatreId);
 
   const [selectedMovie, setSelectedMovie] = useState({})
   const [selectedTheater, setSelectedTheater] = useState({})
   
   const [selectedSeats, setSelectedSeats] = useState([])
-  const [occupiedSeats, setOccupiedSeats] = useState([10, 12, 50, 33, 28, 47])
-  const [moviePrice, setMoviePrice] = useState(150)
+  const occupiedSeats =  useState([10, 12, 50, 33, 28, 47])
+  const moviePrice  = useState(150)
   
   
   const navigate = useNavigate();

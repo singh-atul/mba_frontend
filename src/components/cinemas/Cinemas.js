@@ -8,9 +8,7 @@ const Cinemas = () => {
     const init = async () => {
 
         const result = await getAllTheaters();
-        setCinemaList(result.data);
-        console.log(result.data)
-    
+        setCinemaList(result.data);    
     }
 
     useEffect(() => {

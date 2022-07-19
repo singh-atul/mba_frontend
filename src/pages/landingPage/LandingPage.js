@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
-import Navbar from "../../components/navbar/navbar";
-import Slider from '../../components/slider/slider';
-import Footer from '../../components/footer/footer';
+import Navbar from "../../components/navbar/Navbar";
+import Slider from '../../components/slider/Slider';
+import Footer from '../../components/footer/Footer';
 import {getAllMovies} from '../../api/movie';
 
 import Loader from '../../assets/load.gif'

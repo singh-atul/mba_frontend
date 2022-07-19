@@ -1,4 +1,4 @@
-import { AxiosInstance } from "../../util/axiosInstance";
+import { AxiosInstance } from "../../util/AxiosInstance";
 
 export const getAllMovies = async () => {
 
@@ -52,7 +52,6 @@ export const getMovie = async (id) => {
     const URL = `/mba/api/v1/movies/${movie._id}`;
     
     try {
-  
       const response = await AxiosInstance.put(URL,movie);
       return response;
     } catch (error) {

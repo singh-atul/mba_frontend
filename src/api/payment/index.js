@@ -1,7 +1,7 @@
 
 
 
-import { AxiosInstance } from "../../util/axiosInstance";
+import { AxiosInstance } from "../../util/AxiosInstance";
 
 export const makePayment = async (payment) => {
 

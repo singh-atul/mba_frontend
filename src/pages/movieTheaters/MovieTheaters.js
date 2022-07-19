@@ -1,7 +1,7 @@
 import { getAllTheaters } from '../../api/theater'
 import { getMovie } from '../../api/movie'
-import Footer from '../../components/footer/footer'
-import Navbar from '../../components/navbar/navbar'
+import Footer from '../../components/footer/Footer'
+import Navbar from '../../components/navbar/Navbar'
 import { useParams } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useState } from 'react'
@@ -69,30 +69,33 @@ const MovieTheaters = () => {
                 {pageLoaded ? (
                     theatersDetail.map(
                         theater => <li key={theater.name} className="list-group-item ">
-                            <div className='row'>
+                            <Link key={theater._id} to={`/movie/${selectedMovieId}/${theater._id}`} className="fw-bold text-dark text-decoration-none p-2">
+                                <div className='row'>
+                                    <div className="col">
+                                
+                                    
+                                    {theater.name}
+                                
+                                    </div>
                                 <div className="col">
-                               
-                                <Link key={theater._id} to={`/movie/${selectedMovieId}/${theater._id}`} className="fw-bold text-dark text-decoration-none p-2">
-                                {theater.name}
-                            </Link>
+                                    <div className="p-2 text-success fw-bold">
+                                        <i className="bi bi-phone-fill text-success"></i>
+                                            m-Ticket 
                                 </div>
-                            <div className="col">
-                            <div className="p-2 text-success fw-bold">
-                            <i className="bi bi-phone-fill text-success"></i>
-                                m-Ticket 
-                               </div>
-                            </div>
+                                </div>
 
-                            <div className="col">
-                            <div className="p-2 text-danger fw-bold">
-                               <i className="bi bi-cup-straw text-danger"></i>
-                               Food and Beverages
-                               </div>
-                            </div>
-                          
+                                <div className="col">
+                                    <div className="p-2 text-danger fw-bold">
+                                        <i className="bi bi-cup-straw text-danger"></i>
+                                        Food and Beverages
+                                </div>
+                                </div>
+                                
                             
-                               
-                            </div>
+                                
+                                
+                                </div>
+                            </Link>
                               
                           
                            

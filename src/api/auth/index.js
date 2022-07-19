@@ -1,4 +1,4 @@
-import { AxiosInstance } from "../../util/axiosInstance";
+import { AxiosInstance } from "../../util/AxiosInstance";
 
 
 
@@ -29,7 +29,6 @@ export const signIn = async (user) => {
 }
 
 export const signUp = async (user) => {
-  console.log(user)
   const URL = "/mba/api/v1/auth/signup";
 
   try {
@@ -61,7 +60,6 @@ export const updatePassword = async (userId,user) => {
 
   try {
     const response = await AxiosInstance.put(URL, user);
-    console.log(response);
     return response;
   } catch (error) {
       console.log(error);

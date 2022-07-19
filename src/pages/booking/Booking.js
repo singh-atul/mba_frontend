@@ -2,34 +2,12 @@
 import './booking.css'
 import React, {useEffect, useState } from 'react'
 import clsx from 'clsx'
-import Footer from '../../components/footer/footer'
-import Navbar from '../../components/navbar/navbar'
+import Footer from '../../components/footer/Footer'
+import Navbar from '../../components/navbar/Navbar'
 import { useNavigate,useParams } from 'react-router-dom';
-import Payment from '../../components/payment/payment'
+import Payment from '../../components/payment/Payment'
 import { getMovie } from '../../api/movie'
 import { getTheaterById } from '../../api/theater'
-// const movies = [
-//   {
-//     name: 'Avenger',
-//     price: 10,
-//     occupied: [20, 21, 30, 1, 2, 8],
-//   },
-//   {
-//     name: 'Joker',
-//     price: 12,
-//     occupied: [9, 41, 35, 11, 65, 26],
-//   },
-//   {
-//     name: 'Toy story',
-//     price: 8,
-//     occupied: [37, 25, 44, 13, 2, 3],
-//   },
-//   {
-//     name: 'the lion king',
-//     price: 9,
-//     occupied: [10, 12, 50, 33, 28, 47],
-//   },
-// ]
 
 const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
 
@@ -57,12 +35,10 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
 
     const theaterResponse = await getTheaterById(selectedTheaterId);
     setSelectedTheater(theaterResponse.data);
-    console.log("theatreId",selectedTheaterId)
     
     setPageLoading(true)
 }
   useEffect(() => {
-    console.log(localStorage.getItem('token'));
     if(localStorage.getItem('token')===null){
       navigate('/login');
     }
@@ -102,6 +78,7 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
         ):"" 
       }
       </p>
+
       <Payment
         noOfSeats = {selectedSeats.length}
         movie = {selectedMovie}

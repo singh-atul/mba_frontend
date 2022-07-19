@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button } from 'react-bootstrap'
 import './client.css';
 import {addNewTheater,getAllTheaters,updateTheaterDetails,deleteTheaterDetail,getTheaterById, updateTheaterMovie} from '../../api/theater'
-import { cities } from "../../util/cities";
+import { cities } from "../../util/Cities";
 import {getAllMovies,addNewMovie,removeMovie,updateMovieDetails} from '../../api/movie'
-import Navbar from "../../components/navbar/navbar";
+import Navbar from "../../components/navbar/Navbar";
 
 import { getAllUsers ,updateUserInfo} from "../../api/user";
 import MaterialTable from "@material-table/core";
@@ -83,7 +83,6 @@ const [counterInfo, setCounterInfo] = useState({});
     
     const updateUserDetail = async (event) => {
         event.preventDefault();
-        console.log(userDetail)
         await updateUserInfo(userDetail)
         refreshUsers();
         clearState();
@@ -222,7 +221,7 @@ return (
      <Navbar/>
     <div className="container bg-light my-2">
        
-        <h3 className="text-center">Welcome, Client!</h3>
+        <h3 className="text-center">Welcome, {localStorage.getItem('name')}!</h3>
             <p className="text-center text-secondary">Take a quick look at your stats below</p>
            <div className="my-2">
            <MaterialTable

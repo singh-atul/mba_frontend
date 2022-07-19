@@ -37,10 +37,13 @@ function Login() {
 
     const loginFn = async (e) => {
         e.preventDefault();
+        
         const data = {
             userId,
             password
         };
+        if (! validateData(data))
+            return false;
 
         const result = await signIn(data);
         if(localStorage.getItem('token'))
@@ -61,6 +64,8 @@ function Login() {
             userType,
             password
         };
+        if (! validateData(data))
+            return false;
         
 
         const response = await signUp(data);
@@ -101,6 +106,38 @@ function Login() {
 
     }
 
+    const validateData = (data) => {
+        if(data.userId.length<5 || data.userId.length>10){
+            setErrorMessage("User ID should be 5 to 10 character long ");
+            return false
+        }
+        if(data.userId.includes(' ')){
+            setErrorMessage("User ID should not contain spaces")
+            return false;
+        }
+        if(data.password.length<6 || data.password.length>10){
+            setErrorMessage("Password should be 6 to 10 character long ");
+            return false
+        }
+        if(data.password.includes(' ')){
+            setErrorMessage("Password should not contain spaces")
+            return false;
+        }
+        if(data.name){
+            if(data.name.length<5 || data.password.length>10){
+                setErrorMessage("Username should be 5 to 10 character long ");
+                return false
+            }
+            if(data.password.includes(' ')){
+                setErrorMessage("Username should not contain spaces")
+                return false;
+            }
+        }
+        
+
+        return true;
+    }
+
     const clearState = (e) =>{
         setMessage("")
         setErrorMessage("")
@@ -113,6 +150,7 @@ function Login() {
 
         
     }
+
 
     return (
 
@@ -127,7 +165,7 @@ function Login() {
                                             
                                             <form  onSubmit={showSignup ? signupFn: loginFn}>
                                                 <div className="input-group ">
-                                                    <input type="text" className="form-control m-1" placeholder="User Id" id="userId" onChange={updateSignupData} value={userId} autoFocus required />
+                                                    <input type="text" className="form-control m-1" placeholder="User Id" id="userId" onChange={updateSignupData} value={userId} autoFocus  required />
                                                 
                                                 </div>
                                                 <div className="input-group">
@@ -179,21 +217,6 @@ function Login() {
                 </div>
             
             </div>
-            {/* <div style={{
-                position: "fixed",
-                left: 0,
-                bottom: 0,
-                right: 0,
-                backgroundColor: "white"
-                }}>
-                <footer className="page-footer">
-                    <div className="text-center py-3">© 2022 Copyright:
-                        <a href="https://relevel.com">Relevel by Unacademy</a>
-                    </div>
-                </footer>
-            </div> */}
-
-
             
         </div>
         

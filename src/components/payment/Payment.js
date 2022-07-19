@@ -1,20 +1,21 @@
 import { Modal } from 'react-bootstrap';
 import {useState} from 'react';
-import { createBooking } from '../../api/booking/booking';
-import {makePayment} from '../../api/payment/payment';
+import { createBooking } from '../../api/booking';
+import {makePayment} from '../../api/payment';
 import Loader from '../../assets/simpson.gif'
+import { useNavigate } from 'react-router-dom';
+
 function Payment(props) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [bookingDetail, setBookingDetail] = useState({});
     const [paymentDetail, setPaymentDetail] = useState({});
-
-    console.log(paymentDetail);
+    const navigate = useNavigate();
     
-
-
     const closeModal = () => {
         setIsOpen(false)
+        if(paymentDetail.status==="SUCCESS")
+            navigate('/'); 
     }
 
     const finalizePayment = async () =>{
@@ -39,7 +40,7 @@ function Payment(props) {
 
     return (
        <>
-        <button className='btn btn-danger' onClick={openModal}>Proceed to Payment</button>
+        <button className='btn btn-danger' onClick={openModal} disabled={props.noOfSeats===0}>Proceed to Payment</button>
        <Modal 
        size="sm"
        show={isOpen}

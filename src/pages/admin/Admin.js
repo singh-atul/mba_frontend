@@ -1,19 +1,17 @@
-import React, { useEffect, useState,useSetState } from "react";
+import React, { useEffect, useState } from "react";
 import { Modal, Button } from 'react-bootstrap'
 import './admin.css';
 import { addNewTheater, getAllTheaters, updateTheaterDetails, deleteTheaterDetail, getTheaterById, updateTheaterMovie } from '../../api/theater'
-import { cities } from "../../util/cities";
+import { cities } from "../../util/Cities";
 import { getAllMovies, addNewMovie, removeMovie, updateMovieDetails } from '../../api/movie'
-import { getBooking } from "../../api/booking/booking";
+import { getBooking } from "../../api/booking";
 import { getAllUsers, updateUserInfo } from "../../api/user";
 import MaterialTable from "@material-table/core";
 import Delete from '@material-ui/icons/Delete';
 import Edit from '@material-ui/icons/Edit';
 import Add from '@material-ui/icons/Add';
 import { CWidgetStatsC } from '@coreui/react';
-import { CIcon } from '@coreui/icons-react';
-import { cilChartPie } from '@coreui/icons';
-import Navbar from "../../components/navbar/navbar";
+import Navbar from "../../components/navbar/Navbar";
 import { ExportCsv, ExportPdf } from '@material-table/exporters';
 
 
@@ -28,6 +26,7 @@ const Admin = () => {
     const [updateTheaterModal, showUpdateTheaterModal] = useState(false);
     const [tempTheaterDetail, setTempTheaterDetail] = useState({});
     const [bookingDetail,setBookingDetails] = useState({});
+    
 
     const [cinemaList, setCinemaList] = useState([]);
 
@@ -40,10 +39,12 @@ const Admin = () => {
     const [userModal, setUserModal] = useState(false);
     const [userDetail, setUserDetails] = useState({});
 
-    const [counterInfo, setCounterInfo] = useState({});
+    const counterInfo = useState({});
 
     const [errorMessage,setErrorMessage] = useState("");
-    const [pageLoaded,setPageLoaded] = useState(false); 
+
+
+
     const refreshTheaters = async () => {
         const result = await getAllTheaters();
         setCinemaList(result.data);
@@ -58,15 +59,14 @@ const Admin = () => {
 
     const refreshBookings = async () => {
         const bookingResponse = await getBooking();
-        setBookingDetails(bookingResponse.data)
+        setBookingDetails(bookingResponse.data)        
         counterInfo.booking = bookingResponse.data.length
     }
     
 
     const refreshUsers = async () => {
         const userResult = await getAllUsers();
-        console.log(userResult)
-        setUserList(userResult.data.filter(user => user.userId != localStorage.getItem('userId')))
+        setUserList(userResult.data.filter(user => user.userId !== localStorage.getItem('userId')))
         counterInfo.userResult = userResult.data.length
     }
 
@@ -78,9 +78,8 @@ const Admin = () => {
         refreshMovies()
         refreshUsers()
         refreshBookings()
-        setPageLoaded(true)
+        // eslint-disable-next-line 
     }, [])
-
 
 
     const editUser = (user) => {
@@ -88,6 +87,7 @@ const Admin = () => {
         setUserDetails(Object.assign({}, user))
 
     }
+
 
     const changeUserDetail = (e) => {
         if (e.target.name === "name")
@@ -104,7 +104,6 @@ const Admin = () => {
 
     const updateUserDetail = async (event) => {
         event.preventDefault();
-        console.log(userDetail)
         await updateUserInfo(userDetail)
         refreshUsers();
         clearState();
@@ -123,7 +122,7 @@ const Admin = () => {
         event.preventDefault();
         tempTheaterDetail.userId = "62a38a762f4e41d6b8b8fb48"
         const response = await addNewTheater(tempTheaterDetail);
-        if(response.status==201)
+        if(response.status===201)
         {
             refreshTheaters()
             clearState()
@@ -137,7 +136,6 @@ const Admin = () => {
     }
     const updateTheater = async (e) => {
         e.preventDefault()
-        console.log(tempTheaterDetail)
         await updateTheaterDetails(tempTheaterDetail)
         refreshTheaters()
         clearState()
@@ -147,7 +145,6 @@ const Admin = () => {
     const deleteTheater = async (theater) => {
         await deleteTheaterDetail(theater);
         refreshTheaters()
-        // await deleteTheater(updatedTheaterDetail)
     }
 
     const updateMovieInTheater = async (movie, insert = false) => {
@@ -197,6 +194,7 @@ const Admin = () => {
             tempMovieDetail.description = e.target.value
         else if (e.target.name === "releaseStatus")
             tempMovieDetail.releaseStatus = e.target.value
+            
         else if (e.target.name === "director")
             tempMovieDetail.director = e.target.value
         else if (e.target.name === "releaseDate")
@@ -231,6 +229,7 @@ const Admin = () => {
     const updateMovie = async (e) => {
         e.preventDefault()
         await updateMovieDetails(tempMovieDetail)
+        showUpdateMovieModal(false)
         refreshMovies()
         clearState()
 
@@ -251,6 +250,7 @@ const Admin = () => {
         setUserModal(false);
         setTempTheaterDetail({});
         setTempMovieDetail({});
+
         
     }
 
@@ -258,7 +258,7 @@ const Admin = () => {
     const Cards = () =>{
         return (
         <>
-        <p className="text-center text-secondary">Take a quick look at your stats below</p>
+        <p className="text-center text-secondary">Take a quick look at your  stats below</p>
                 <div className="row">
                    
                     <div className="col">
@@ -332,7 +332,7 @@ const Admin = () => {
          <Navbar/>
 
         <div className="container bg-light mt-2">
-        <h3 className="text-center">Welcome, Admin!</h3>
+        <h3 className="text-center">Welcome, {localStorage.getItem('name')}!</h3>
             
            
             <Cards/>
@@ -384,6 +384,7 @@ const Admin = () => {
                         ]}
 
                         options={{
+                            emptyRowsWhenPaging: false,
                             actionsColumnIndex: -1,
                             sorting: true,
                             exportMenu: [{
@@ -489,8 +490,6 @@ const Admin = () => {
 
                                                 actions={[
                                                     (rowData) => {
-                                                        console.log(rowData.name,tempTheaterDetail.movies)
-
                                                         return {
                                                             icon: tempTheaterDetail.movies.includes(rowData._id) ? Delete : Add,
                                                             tooltip: tempTheaterDetail.movies.includes(rowData._id) ? "Remove Movie from Theater" : "Add movie to theater",
@@ -501,6 +500,7 @@ const Admin = () => {
                                                 ]}
 
                                                 options={{
+                                                    emptyRowsWhenPaging: false,
                                                     actionsColumnIndex: -1,
                                                     sorting: true,
 
@@ -575,6 +575,7 @@ const Admin = () => {
                         ]}
 
                         options={{
+                            emptyRowsWhenPaging: false,
                             actionsColumnIndex: -1,
                             sorting: true,
                             exportMenu: [{
@@ -655,7 +656,7 @@ const Admin = () => {
 
                             <div className="input-group my-2">
                             <span className="input-group-text"><i className="b bi-pencil"></i></span> 
-                            <select name="releaseStatus" value={tempMovieDetail.releaseStatus} onChange={updateTempMovieDetail} defaultValue="RELEASED" required className="form-select form-select-sm">
+                            <select name="releaseStatus" value={tempMovieDetail.releaseStatus} onChange={updateTempMovieDetail}  required className="form-select form-select-sm">
                                 <option value="RELEASED">RELEASED </option>
                                 <option value="UNRELEASED">UNRELEASED</option>
                                 <option value="BLOCKED">BLOCKED</option>
@@ -682,7 +683,7 @@ const Admin = () => {
                                     <Button variant="danger" onClick={clearState}>Cancel</Button>
                                 </div>
                                 <div className="m-1">
-                                    <Button type="submit" variant="dark" >{updateMovieModal ? "EDIT Movie" : "Add Movie"}</Button>
+                                    <Button type="submit" variant="dark" >{updateMovieModal ? "OK" : "Add Movie"}</Button>
                                 </div>
                             </div>
                         </form>
@@ -737,6 +738,7 @@ const Admin = () => {
                     },
                 ]}
                 options={{
+                    emptyRowsWhenPaging: false,
                     filtering: true,
                     sorting: true,
                     exportMenu: [{
@@ -760,7 +762,6 @@ const Admin = () => {
                 ):<></>
 
             }
-            
                 <Modal
                     show={userModal}
                     onHide={clearState}
@@ -835,8 +836,6 @@ const Admin = () => {
                 showBookingTable? (
 
                     <MaterialTable
-                    onRowClick={(event, rowData) => editUser(rowData)}
-
                     data={bookingDetail}
                     columns={[
                         {
@@ -844,26 +843,34 @@ const Admin = () => {
                             field: "_id",
                         },
                         {
-                            title: "Movie ID",
-                            field: "movieId",
-
-                        },
-                        {
-                            title: "Theater ID",
-                            field: "theatreId",
+                            title: "Booked At",
+                            field: "createdAt",
                         },
                         {
                             title: "Number Of Seats",
                             field: "noOfSeats",
                         },
                         {
+                            title: "Total Cost",
+                            field: "totalCost",
+                            filtering:false
+
+                        },
+                        {
                             title: "Booking Status",
                             field: "status",
+                            lookup: {
+                                "IN_PROGRESS": "IN_PROGRESS",
+                                "COMPLETED": "COMPLETED"
+    
+                            }
                             
                         },
                     ]}
                     options={{
-                        filtering: true,
+                        filtering:true,
+                        emptyRowsWhenPaging: false,
+                        
                         sorting: true,
                         exportMenu: [{
                             label: 'Export PDF',
@@ -885,7 +892,6 @@ const Admin = () => {
 
                 ):<></>
             }
-
             
 
 

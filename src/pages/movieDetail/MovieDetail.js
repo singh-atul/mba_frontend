@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams, Link } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { getMovie } from '../../api/movie';
-import Footer from '../../components/footer/footer';
-import Navbar from "../../components/navbar/navbar";
+import Footer from '../../components/footer/Footer';
+import Navbar from "../../components/navbar/Navbar";
 import './movieDetail.css'
 
 const MovieDetail = () => {

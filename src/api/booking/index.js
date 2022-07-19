@@ -1,5 +1,5 @@
 
-import { AxiosInstance } from "../../util/axiosInstance";
+import { AxiosInstance } from "../../util/AxiosInstance";
 
   export const createBooking = async (booking) => {
 

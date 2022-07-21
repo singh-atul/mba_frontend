@@ -1,6 +1,9 @@
 {
   "name": "mba_frontend",
   "version": "0.1.0",
+  "engines": {
+    "node": "14.17.6"
+  },
   "private": true,
   "dependencies": {
     "@coreui/coreui": "^4.1.6",

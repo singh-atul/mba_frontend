@@ -7,16 +7,16 @@ import Navbar from "../../components/navbar/Navbar";
 import './movieDetail.css'
 
 const MovieDetail = () => {
-    const { movieid: id } = useParams();
-    const selectedMovie = useState(id);
+    const { movieid: selectedMovie } = useParams();
     const [MovieDetails, setMovieDetails] = useState({});
     const [releaseStatus, setMovieReleaseStatus] = useState(false);
     const [movieCast, setMovieCast] = useState([]);
 
 
     const init = async () => {
-
+        
         const response = await getMovie(selectedMovie);
+        console.log(response);
         setMovieDetails(response.data);
         setMovieReleaseStatus(response.data.releaseStatus === "RELEASED")
         setMovieCast(response.data.casts)
@@ -58,7 +58,7 @@ const MovieDetail = () => {
                             <h6>{MovieDetails.releaseDate}</h6>
                             <hr />
                             <h5>Cast</h5>
-                            {movieCast.map(name => <li key={name} className="list-group-item">{name}</li>)}
+                            {console.log(movieCast)}{movieCast.map(name => <li key={name} className="list-group-item">{name}</li>)}
                             <div className="text-center my-3"><Link key={selectedMovie} className="text-decoration-none btn btn-lg btn-danger text-center" to={releaseStatus ? `/buytickets/${MovieDetails.name}/${selectedMovie}` : `#`}>{releaseStatus ? "BOOK TICKET" : "COMMING SOON"}</Link></div>
                             <br />
                         </div>

@@ -39,7 +39,7 @@ const Admin = () => {
     const [userModal, setUserModal] = useState(false);
     const [userDetail, setUserDetails] = useState({});
 
-    const counterInfo = useState({});
+    const [counterInfo,setCounterInfo] = useState({});
 
     const [errorMessage,setErrorMessage] = useState("");
 
@@ -48,19 +48,24 @@ const Admin = () => {
     const refreshTheaters = async () => {
         const result = await getAllTheaters();
         setCinemaList(result.data);
+        
         counterInfo.theater = result.data.length
+        setCounterInfo(counterInfo)
+        
     }
 
     const refreshMovies = async () => {
         const movieResult = await getAllMovies();
         setMovieList(movieResult.data);
         counterInfo.movies = movieResult.data.length
+        setCounterInfo(counterInfo)
     }
 
     const refreshBookings = async () => {
         const bookingResponse = await getBooking();
         setBookingDetails(bookingResponse.data)        
         counterInfo.booking = bookingResponse.data.length
+        setCounterInfo(counterInfo)
     }
     
 
@@ -68,6 +73,7 @@ const Admin = () => {
         const userResult = await getAllUsers();
         setUserList(userResult.data.filter(user => user.userId !== localStorage.getItem('userId')))
         counterInfo.userResult = userResult.data.length
+        setCounterInfo(counterInfo)
     }
 
 
@@ -270,7 +276,7 @@ const Admin = () => {
                             progress={{ value: counterInfo.theater }}
                             text="Number of Theaters"
                             title="Theaters"
-                            value={counterInfo.theater ? counterInfo.theater : "Add theaters"}
+                            value={counterInfo.theater}
                             onClick={()=>setShowTheaterTable(!showTheaterTable)}
 
                         />
@@ -289,6 +295,8 @@ const Admin = () => {
 
                         />
                     </div>
+
+                    
                     <div className="col view overlay zoom">
                         <CWidgetStatsC
                             className="mb-3 mask flex-center"
@@ -298,7 +306,7 @@ const Admin = () => {
                             progress={{ value: counterInfo.booking }}
                             text="Number of Booking"
                             title="Bookings"
-                            value={counterInfo.booking ? counterInfo.booking : "Add booking"}
+                            value={counterInfo.booking }
                             onClick={()=>setShowBookingTable(!showBookingTable)}
 
                         />
@@ -312,7 +320,7 @@ const Admin = () => {
                             progress={{ value: counterInfo.userResult }}
                             text="Number of Users"
                             title="Users"
-                            value={counterInfo.userResult ? counterInfo.userResult : "Add Users"}
+                            value={counterInfo.userResult }
                             onClick={()=>setShowUserTable(!showUserTable)}
                         />
 

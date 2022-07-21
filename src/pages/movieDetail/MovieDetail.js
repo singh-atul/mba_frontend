@@ -7,15 +7,14 @@ import Navbar from "../../components/navbar/Navbar";
 import './movieDetail.css'
 
 const MovieDetail = () => {
-    const { movieid: id } = useParams();
-    const selectedMovie = useState(id);
+    const { movieid: selectedMovie } = useParams();
     const [MovieDetails, setMovieDetails] = useState({});
     const [releaseStatus, setMovieReleaseStatus] = useState(false);
     const [movieCast, setMovieCast] = useState([]);
 
 
     const init = async () => {
-
+        
         const response = await getMovie(selectedMovie);
         setMovieDetails(response.data);
         setMovieReleaseStatus(response.data.releaseStatus === "RELEASED")

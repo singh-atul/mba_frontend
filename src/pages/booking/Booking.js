@@ -12,32 +12,10 @@ import { getTheaterById } from '../../api/theater'
 const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
 
  function Booking() {
-  const { movieid: movieId } = useParams();
-  const { theatreid: theatreId } = useParams();
-  const [pageLoaded, setPageLoading] = useState(false);
-
-  const selectedMovieId  = useState(movieId);
-  const selectedTheaterId  = useState(theatreId);
-
-  const [selectedMovie, setSelectedMovie] = useState({})
-  const [selectedTheater, setSelectedTheater] = useState({})
-  
-  const [selectedSeats, setSelectedSeats] = useState([])
-  const occupiedSeats =  useState([10, 12, 50, 33, 28, 47])
-  const moviePrice  = useState(150)
-  
-  
   const navigate = useNavigate();
-
-  const init = async () => {
-    const response = await getMovie(selectedMovieId);
-    setSelectedMovie(response.data);
-
-    const theaterResponse = await getTheaterById(selectedTheaterId);
-    setSelectedTheater(theaterResponse.data);
-    
-    setPageLoading(true)
-}
+  const { movieid: selectedMovieId } = useParams();
+  const { theatreid: selectedTheaterId } = useParams();
+  
   useEffect(() => {
     if(localStorage.getItem('token')===null){
       navigate('/login');
@@ -45,7 +23,32 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
     else{
       init();
     }
+    // eslint-disable-next-line
 }, [])
+
+  const init = async () => {
+    const response = await getMovie(selectedMovieId);
+    setSelectedMovie(response.data);
+    const theaterResponse = await getTheaterById(selectedTheaterId);
+    setSelectedTheater(theaterResponse.data);
+    setPageLoading(true)
+  }
+
+  
+  const [pageLoaded, setPageLoading] = useState(false);
+
+
+  const [selectedMovie, setSelectedMovie] = useState({})
+  const [selectedTheater, setSelectedTheater] = useState({})
+  
+  const [selectedSeats, setSelectedSeats] = useState([])
+  const occupiedSeats =  [10, 12, 50, 33, 28, 47]
+  const moviePrice  = 150
+  
+  
+  
+
+  
 
 
 

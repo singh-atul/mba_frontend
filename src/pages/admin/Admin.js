@@ -50,7 +50,7 @@ const Admin = () => {
         setCinemaList(result.data);
         
         counterInfo.theater = result.data.length
-        setCounterInfo(counterInfo)
+        setCounterInfo(Object.assign({}, counterInfo))
         
     }
 
@@ -58,14 +58,14 @@ const Admin = () => {
         const movieResult = await getAllMovies();
         setMovieList(movieResult.data);
         counterInfo.movies = movieResult.data.length
-        setCounterInfo(counterInfo)
+        setCounterInfo(Object.assign({}, counterInfo))
     }
 
     const refreshBookings = async () => {
         const bookingResponse = await getBooking();
         setBookingDetails(bookingResponse.data)        
         counterInfo.booking = bookingResponse.data.length
-        setCounterInfo(counterInfo)
+        setCounterInfo(Object.assign({}, counterInfo))
     }
     
 
@@ -73,7 +73,7 @@ const Admin = () => {
         const userResult = await getAllUsers();
         setUserList(userResult.data.filter(user => user.userId !== localStorage.getItem('userId')))
         counterInfo.userResult = userResult.data.length
-        setCounterInfo(counterInfo)
+        setCounterInfo(Object.assign({}, counterInfo))
     }
 
 

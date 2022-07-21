@@ -19,7 +19,6 @@ export const getAllMovies = async () => {
 
 
 export const getMovie = async (id) => {
-  
     const URL = `/mba/api/v1/movies/${id}`;
     
     try {

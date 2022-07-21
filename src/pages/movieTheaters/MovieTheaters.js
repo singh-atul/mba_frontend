@@ -9,37 +9,28 @@ import { Link } from 'react-router-dom'
 import "../booking/booking.css"
 
 const MovieTheaters = () => {
-    const { movieid: selectedMovieId } = useParams();
+
+    
     const [movieDetail, setMovieDetails] = useState({});
     const [theatersDetail, setTheaterDetails] = useState({});
     const [pageLoaded, setPageLoading] = useState(false);
-
-
-
-    const init = async () => {
-
-        let response = await getAllTheaters();
-        setTheaterDetails(response.data.filter((data) => {
-
-            return data.movies.includes(selectedMovieId);
-        })
-        )
-
-        response = await getMovie(selectedMovieId);
-        console.log(response.data);
-
-        setMovieDetails(response.data);
-
-        setPageLoading(true);
-        
-
-    }
+    const { movieid: selectedMovieId } = useParams();
 
 
     useEffect(() => {
+        const init = async()=> {
+            let response = await getAllTheaters();
+            setTheaterDetails(response.data.filter((data) => {
+                return data.movies.includes(selectedMovieId);
+            })
+            )
+            response = await getMovie(selectedMovieId);
+            setMovieDetails(response.data);
+            setPageLoading(true);
+        }
         init();
-    },
-        []);
+      }, [selectedMovieId]);
+    
 
     return (
         <div>

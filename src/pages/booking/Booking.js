@@ -13,6 +13,8 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
 
  function Booking() {
   const navigate = useNavigate();
+  const { movieid: selectedMovieId } = useParams();
+  const { theatreid: selectedTheaterId } = useParams();
   
   useEffect(() => {
     if(localStorage.getItem('token')===null){
@@ -21,6 +23,7 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
     else{
       init();
     }
+    // eslint-disable-next-line
 }, [])
 
   const init = async () => {
@@ -31,8 +34,7 @@ const seats = Array.from({ length: 8 * 8 }, (_, i) => i)
     setPageLoading(true)
   }
 
-  const { movieid: selectedMovieId } = useParams();
-  const { theatreid: selectedTheaterId } = useParams();
+  
   const [pageLoaded, setPageLoading] = useState(false);
 
 

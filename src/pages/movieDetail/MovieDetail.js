@@ -16,7 +16,6 @@ const MovieDetail = () => {
     const init = async () => {
         
         const response = await getMovie(selectedMovie);
-        console.log(response);
         setMovieDetails(response.data);
         setMovieReleaseStatus(response.data.releaseStatus === "RELEASED")
         setMovieCast(response.data.casts)
@@ -58,7 +57,7 @@ const MovieDetail = () => {
                             <h6>{MovieDetails.releaseDate}</h6>
                             <hr />
                             <h5>Cast</h5>
-                            {console.log(movieCast)}{movieCast.map(name => <li key={name} className="list-group-item">{name}</li>)}
+                            {movieCast.map(name => <li key={name} className="list-group-item">{name}</li>)}
                             <div className="text-center my-3"><Link key={selectedMovie} className="text-decoration-none btn btn-lg btn-danger text-center" to={releaseStatus ? `/buytickets/${MovieDetails.name}/${selectedMovie}` : `#`}>{releaseStatus ? "BOOK TICKET" : "COMMING SOON"}</Link></div>
                             <br />
                         </div>

@@ -14,6 +14,7 @@ const LandingPage = () => {
     const init = async () => {
 
         const result = await getAllMovies();
+        console.log(result);
         setMovieList(result.data);
         setPageLoading(false);
     

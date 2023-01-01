@@ -1,3 +1,4 @@
+import React from "react";
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 const RequireAuth = ({ allowedRoles }) => {
     const location = useLocation();

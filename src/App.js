@@ -1,3 +1,4 @@
+import React from "react";
 import AppRoutes from './components/routes/AppRoutes';
 import '@coreui/coreui/dist/css/coreui.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css'

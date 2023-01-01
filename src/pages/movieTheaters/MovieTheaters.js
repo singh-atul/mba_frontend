@@ -1,3 +1,4 @@
+import React from "react";
 import { getAllTheaters } from '../../api/theater'
 import { getMovie } from '../../api/movie'
 import Footer from '../../components/footer/Footer'

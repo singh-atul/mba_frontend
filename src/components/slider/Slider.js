@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from "react";
+
 import {CCarousel, CCarouselItem, CImage} from '@coreui/react'
 import One from '../../assets/1.avif';
 import Two from '../../assets/2.avif';
